@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".View.Fragment.LoginFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <View
+        android:id="@+id/rectangle_3"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@drawable/rectangle_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/startbutton"
+        android:layout_width="320dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="553dp"
+        android:layout_marginBottom="99dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/rectangle_2">
+    </TextView>
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="159dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="553dp"
+        android:layout_marginBottom="99dp"
+        android:layout_marginLeft="115dp"
+        android:layout_marginRight="115dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="전화번호로 시작하기"
+        android:textAppearance="@style/title"
+        android:lineSpacingExtra="1sp"
+        android:translationY="-0.42sp"
+        android:gravity="center_horizontal|top">
+    </TextView>
+
+    <TextView
+        android:id="@+id/some_id"
+        android:layout_width="320dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="621dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="로그인하면 서비스 이용 약관, 개인정보 보호 약관\n그리고 위치정보 이용 약관에 동의하게 됩니다."
+        android:textAppearance="@style/some_id"
+        android:lineSpacingExtra="1sp"
+        android:translationY="-0.36sp"
+        android:gravity="center_horizontal|top"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

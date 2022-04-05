@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="title">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
+    <!-- styles.xml -->
+    <style name="some_id">
+
+        <item name="android:textSize">
+            10sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #73787E
+        </item>
+
+    </style>
+    <style name="nosendauth">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #0029FF
+        </item>
+
+    </style>
+    <style name="guideinputnumberstyle">
+
+        <item name="android:textSize">
+            24sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #000000
+        </item>
+
+    </style>
+
+    <style name="guideinputnumberstyle2">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #000000
+        </item>
+
+    </style>
+
+    <style name="inputnumbertext">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #0029FF
+        </item>
+
+    </style>
+
+    <style name="inputnumberbtn">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
+    <style name="inputauthnumbertext">
+
+        <item name="android:textSize">
+            24sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #0029FF
+        </item>
+
+    </style>
+    <style name="authcount">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #919191
+        </item>
+
+    </style>
+
+</resources>

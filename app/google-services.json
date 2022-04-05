@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "494767741812",
+    "project_id": "linkplace-5f055",
+    "storage_bucket": "linkplace-5f055.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494767741812:android:985bb45de761a6b8086a21",
+        "android_client_info": {
+          "package_name": "com.example.linkplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494767741812-odiknnfqe8usubf1f96jv5vtbhfttgnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.linkplace",
+            "certificate_hash": "d46ec05698c06372445da89ca3dffbd5166ef31a"
+          }
+        },
+        {
+          "client_id": "494767741812-gmdmps6s6rbh8u6ve4gpact2npiujkre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQcr1zk8FJirJJaJMtl3CO_CwHh82ugAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494767741812-gmdmps6s6rbh8u6ve4gpact2npiujkre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
