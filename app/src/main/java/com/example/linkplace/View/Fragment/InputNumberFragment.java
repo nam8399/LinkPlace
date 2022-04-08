@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
@@ -59,7 +60,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     PhoneAuthProvider.ForceResendingToken mResendToken;
     TextView guidetextview, guidnumberview, nosendAuthText, inputnumberText, inputauthnumbertext, inputauthnumbertext2,
             inputauthnumbertext3, inputauthnumbertext4, inputauthnumbertext5, inputauthnumbertext6, authcounttext;
-    Button sendnumberbtn;
+    Button sendnumberbtn, back_button, cancel_button;
     LinearLayout inputauthnumberLinear, inputnumberLinear;
     String phoneNum = "+821012341234";
 
@@ -94,6 +95,8 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         activity = (MainActivity) getActivity();
         initCallBack();
         sendnumberbtn = view.findViewById(R.id.inputnumberbtn);
+        cancel_button = view.findViewById(R.id.cancel_button);
+        back_button = view.findViewById(R.id.back_button);
         guidetextview = view.findViewById(R.id.numberinputguide);
         guidnumberview = view.findViewById(R.id.numberinputguide2);
         nosendAuthText = view.findViewById(R.id.nosendAuthNum);
@@ -112,6 +115,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         sendnumberbtn.setClickable(false);
         sendnumberbtn.setEnabled(false);
         authcounttext.setVisibility(View.INVISIBLE);
+        back_button.setVisibility(View.INVISIBLE);
 
         inputnumberText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -128,11 +132,11 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 if (inputnumberText.length() > 7) {
                     sendnumberbtn.setClickable(true);
                     sendnumberbtn.setEnabled(true);
-                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     sendnumberbtn.setClickable(false);
                     sendnumberbtn.setEnabled(false);
-                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                 }
             }
         });
@@ -141,7 +145,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -152,7 +156,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -163,7 +167,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -174,7 +178,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -185,7 +189,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -196,7 +200,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             @Override
             public void onFocusChange(View view, boolean b) {
                 if (b) {
-                    inputauthnumbertext6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    inputauthnumbertext6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     inputauthnumbertext6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
                 }
@@ -211,7 +215,6 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
             }
 
             @Override
@@ -313,10 +316,10 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             public void afterTextChanged(Editable editable) {
                 if (inputauthnumbertext6.length() > 0) {
                     sendnumberbtn.setEnabled(true);
-                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#0029FF")));
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                 } else {
                     sendnumberbtn.setEnabled(false);
-                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                 }
             }
         });
@@ -326,6 +329,9 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             public void onClick(View view) {
                 //sendNumber();
                 if (sendnumberbtn.getText().toString().equals("전송하기")) {
+                    cancel_button.setVisibility(View.INVISIBLE);
+                    back_button.setVisibility(View.VISIBLE);
+
                     String inputnumber = inputnumberText.getText().toString();
                     guidetextview.setText("인증번호 6자리를\n입력해주세요.");
                     guidnumberview.setText(inputnumber + "로\n인증번호 문자메시지가 전송되었습니다.");
@@ -335,23 +341,54 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
                     sendnumberbtn.setText("인증하기");
                     sendnumberbtn.setEnabled(false);
-                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
 
                     String content = guidnumberview.getText().toString();
                     SpannableString spannableString = new SpannableString(content);
                     int start = content.indexOf(inputnumber);
                     int end = start + inputnumber.length();
 
-                    //spannableString.setSpan(new ForegroundColorSpan(Color.parseColor("#FF6702")), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-                    //spannableString.setSpan(new RelativeSizeSpan(1.3f), start, end, SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+
                     guidnumberview.setText(spannableString);
                     nosendAuthText.setVisibility(View.VISIBLE);
                     inputnumberLinear.setVisibility(View.GONE);
                     inputauthnumberLinear.setVisibility(View.VISIBLE);
                 } else if (sendnumberbtn.getText().toString().equals("인증하기")) {
 
+                } else if (sendnumberbtn.getText().toString().equals("재전송하기")) {
+                    Toast toast = Toast.makeText(getContext(), "인증번호가 재전송 되었습니다.", Toast.LENGTH_SHORT);
+                    toast.show();
+                    authcounttext.setTextColor(Color.parseColor("#919191"));
+                    startTimerTask();
+                    sendnumberbtn.setText("인증하기");
+                    sendnumberbtn.setEnabled(false);
+                    sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                 }
+            }
+        });
+
+        back_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                guidetextview.setText("본인 확인을 위해\n휴대전화 번호 인증이 필요해요");
+                guidnumberview.setText("입력하신 휴대전화 번호로\n인증번호 문자메시지가 전송됩니다.");
+                sendnumberbtn.setText("전송하기");
+                back_button.setVisibility(View.INVISIBLE);
+                inputnumberLinear.setVisibility(View.VISIBLE);
+                cancel_button.setVisibility(View.VISIBLE);
+                nosendAuthText.setVisibility(View.GONE);
+                inputauthnumberLinear.setVisibility(View.GONE);
+                sendnumberbtn.setClickable(false);
+                sendnumberbtn.setEnabled(false);
+                authcounttext.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        cancel_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
             }
         });
         return view;
@@ -359,6 +396,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
     private void startTimerTask()
     {
+        stopTimerTask();
         timerTask = new TimerTask()
         {
             int count = 60;
@@ -381,8 +419,9 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     public void run() {
                         if (count == 0 && minute == 0) {
                             authcounttext.setText("*인증번호 입력 시간이 초과되었습니다.");
-                            sendnumberbtn.setEnabled(false);
-                            sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#898A8D")));
+                            sendnumberbtn.setText("재전송하기");
+                            sendnumberbtn.setEnabled(true);
+                            sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                         } else if (count < 10) {
                             authcounttext.setText("0" + minute + ":"+ "0" + count);
                         }
@@ -394,6 +433,16 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             }
         };
         timer.schedule(timerTask,0 ,1000);
+    }
+
+    private void stopTimerTask()
+    {
+        if(timerTask != null)
+        {
+            authcounttext.setText("05:00");
+            timerTask.cancel();
+            timerTask = null;
+        }
     }
 
     private void sendNumber() {

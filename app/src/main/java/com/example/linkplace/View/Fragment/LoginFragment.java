@@ -1,9 +1,18 @@
 package com.example.linkplace.View.Fragment;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +33,8 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     MainActivity activity;
+
+    TextView loginagree_text;
 
     // TODO: Rename and change types of parameters
 
@@ -70,6 +81,20 @@ public class LoginFragment extends Fragment implements OnBackPressedListener {
                 ((MainActivity)getActivity()).replaceFragment(InputNumberFragment.newInstance());
             }
         });
+
+        loginagree_text = view.findViewById(R.id.loginagree_text);
+
+        String content = loginagree_text.getText().toString();
+        SpannableString spannableString = new SpannableString(content);
+//        int start = content.indexOf("서비스");
+//        int end = start + inputnumber.length();
+
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 6, 27, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 6, 27, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        spannableString.setSpan(new StyleSpan(Typeface.BOLD), 32, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        spannableString.setSpan(new UnderlineSpan(), 32, 42, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        loginagree_text.setText(spannableString);
 
         return view;
     }
