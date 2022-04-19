@@ -59,7 +59,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     String mVerificationId = "";
     PhoneAuthProvider.ForceResendingToken mResendToken;
     TextView guidetextview, guidnumberview, nosendAuthText, inputnumberText, inputauthnumbertext, inputauthnumbertext2,
-            inputauthnumbertext3, inputauthnumbertext4, inputauthnumbertext5, inputauthnumbertext6, authcounttext;
+            inputauthnumbertext3, inputauthnumbertext4, inputauthnumbertext5, inputauthnumbertext6, authcounttext, nosendauthnumtext;
     Button sendnumberbtn, back_button, cancel_button;
     LinearLayout inputauthnumberLinear, inputnumberLinear;
     String phoneNum = "+821012341234";
@@ -108,6 +108,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         inputauthnumbertext4 = view.findViewById(R.id.inputauthnumbertext4);
         inputauthnumbertext5 = view.findViewById(R.id.inputauthnumbertext5);
         inputauthnumbertext6 = view.findViewById(R.id.inputauthnumbertext6);
+        nosendauthnumtext = view.findViewById(R.id.nosendAuthNum);
         authcounttext = view.findViewById(R.id.authcounttext);
         inputauthnumberLinear = view.findViewById(R.id.inputauthnumberLinear);
         nosendAuthText.setVisibility(View.GONE);
@@ -364,6 +365,18 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     sendnumberbtn.setText("인증하기");
                     sendnumberbtn.setEnabled(false);
                     sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
+                    inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#CACDD2")));
+                    inputauthnumbertext.setEnabled(true);
+                    inputauthnumbertext2.setEnabled(true);
+                    inputauthnumbertext3.setEnabled(true);
+                    inputauthnumbertext4.setEnabled(true);
+                    inputauthnumbertext5.setEnabled(true);
+                    inputauthnumbertext6.setEnabled(true);
                 }
             }
         });
@@ -391,6 +404,15 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 onBackPressed();
             }
         });
+
+        nosendauthnumtext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(noSendAuthNumFragment.newInstance());
+            }
+        });
+
+
         return view;
     }
 
@@ -399,7 +421,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         stopTimerTask();
         timerTask = new TimerTask()
         {
-            int count = 60;
+            int count = 10;
             int minute = 0 ;
 
             @Override
@@ -422,6 +444,18 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                             sendnumberbtn.setText("재전송하기");
                             sendnumberbtn.setEnabled(true);
                             sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
+                            inputauthnumbertext.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext2.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext3.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext4.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext5.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext6.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#E14D4D")));
+                            inputauthnumbertext.setEnabled(false);
+                            inputauthnumbertext2.setEnabled(false);
+                            inputauthnumbertext3.setEnabled(false);
+                            inputauthnumbertext4.setEnabled(false);
+                            inputauthnumbertext5.setEnabled(false);
+                            inputauthnumbertext6.setEnabled(false);
                         } else if (count < 10) {
                             authcounttext.setText("0" + minute + ":"+ "0" + count);
                         }
@@ -504,7 +538,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
     @Override
     public void onBackPressed() {
-        ((MainActivity)getActivity()).replaceFragment(LoginFragment.newInstance());
+        //((MainActivity)getActivity()).replaceFragment(LoginFragment.newInstance());
     }
 
     @Override public void onResume() {

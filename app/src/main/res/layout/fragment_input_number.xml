@@ -89,18 +89,38 @@
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintHorizontal_bias="0.737" />
 
-        <TextView
-            android:id="@+id/nosendAuthNum"
+        <LinearLayout
+            android:id="@+id/nosendAuthNumLinear"
             android:layout_width="350dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
             android:layout_marginBottom="14dp"
-            android:text="인증번호가 오지 않나요?"
-            android:textAppearance="@style/nosendauth"
             android:lineSpacingExtra="1sp"
             android:translationY="-0.31sp"
-            android:gravity="top"
-            />
+            android:gravity="top">
+            <TextView
+                android:id="@+id/nosendAuthNum"
+                android:layout_width="350dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:text="인증번호가 오지 않나요?"
+                android:textStyle="bold"
+                android:textAppearance="@style/nosendauth"
+                android:lineSpacingExtra="1sp"
+                android:translationY="-0.31sp"
+                android:gravity="top"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="18dp"
+                android:layout_gravity="center"
+                android:layout_weight="0.5"
+                android:lineSpacingExtra="1sp"
+                android:translationY="-0.31sp"
+                android:gravity="top"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/inputnumberLinear"

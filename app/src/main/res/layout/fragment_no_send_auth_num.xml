@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".View.Fragment.noSendAuthNumFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:id="@+id/nosendAuthNumLinear"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <View
+            android:id="@+id/weight"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="15dp"/>
+        <Button
+            android:id="@+id/cancel_button"
+            android:layout_width="35dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginRight="28dp"
+            android:layout_marginBottom="15dp"
+            android:background="@drawable/cancelbutton" />
+    </LinearLayout>
+    <View
+        android:id="@+id/guide_line"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guide_textLinear"
+        android:background="@drawable/guide_line"
+        />
+    <LinearLayout
+        android:id="@+id/guide_textLinear"
+        app:layout_constraintTop_toTopOf="@id/guide_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/numberreinputguide"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="44dp"
+            android:gravity="top"
+            android:lineSpacingExtra="-1sp"
+            android:text="✔ 본인의 휴대전화 번호가 맞는지 확인해주세요."
+            android:textAppearance="@style/myphonenumbercheck"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/myphonennumber"
+            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintTop_toTopOf="@+id/guide_line"
+            app:layout_constraintVertical_bias="0.434" />
+        <LinearLayout
+            android:id="@+id/myphonennumber"
+            android:layout_width="350dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:lineSpacingExtra="-1sp"
+            android:textAppearance="@style/myphonenumbercheck"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:layout_marginBottom="48dp"
+            app:layout_constraintBottom_toTopOf="@+id/numberinputguide2"
+            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintTop_toTopOf="@+id/guide_line"
+            app:layout_constraintVertical_bias="0.434"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/phonenumberchecktext"
+                android:layout_width="220dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:gravity="top"
+                android:lineSpacingExtra="-1sp"
+                android:text="010-1234-5678"
+                android:textAppearance="@style/rephonenumbertext"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/reinputphonenumbertext"
+                android:layout_width="150dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:gravity="center|left"
+                android:lineSpacingExtra="-1sp"
+                android:text="다시 입력"
+                android:textAppearance="@style/reinputnumbertext"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/numberreinputguide2"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:gravity="top"
+            android:lineSpacingExtra="-1sp"
+            android:text="✔ 인증 메시지 스팸 차단이 되어있는지 확인해주세요. "
+            android:textAppearance="@style/myphonenumbercheck"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/myphonennumber"
+            app:layout_constraintHorizontal_bias="0.342"
+            app:layout_constraintTop_toTopOf="@+id/guide_line"
+            app:layout_constraintVertical_bias="0.434" />
+
+        <TextView
+            android:id="@+id/numberinputguide2"
+            android:layout_width="350dp"
+            android:layout_height="75dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp"
+            android:gravity="top"
+            android:lineSpacingExtra="1sp"
+            android:text="(070-000-0000)로 인증 메시지가 전송됩니다.\n스팸 메시지 차단 목록에 해당 메시지가 있는지 확인 후\n차단을 해제해주세요. "
+            android:textAppearance="@style/guideinputnumberstyle2"
+            android:translationY="-0.36sp"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.737" />
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/inputnumberbtn"
+        android:layout_width="350dp"
+        android:layout_height="55dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="310dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="30dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="재전송하기"
+        android:background="@drawable/inputnumberbtn"
+        android:textAppearance="@style/inputnumberbtn"
+        android:lineSpacingExtra="1sp"
+        android:translationY="-0.42sp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
