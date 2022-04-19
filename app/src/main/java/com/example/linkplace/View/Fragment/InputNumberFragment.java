@@ -356,7 +356,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     inputnumberLinear.setVisibility(View.GONE);
                     inputauthnumberLinear.setVisibility(View.VISIBLE);
                 } else if (sendnumberbtn.getText().toString().equals("인증하기")) {
-
+                    ((MainActivity)getActivity()).replaceFragment(ProfileSetFragment.newInstance());
                 } else if (sendnumberbtn.getText().toString().equals("재전송하기")) {
                     Toast toast = Toast.makeText(getContext(), "인증번호가 재전송 되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -401,7 +401,8 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         cancel_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onBackPressed();
+                //onBackPressed();
+                ((MainActivity)getActivity()).replaceFragment(LoginFragment.newInstance());
             }
         });
 
@@ -411,6 +412,35 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 ((MainActivity)getActivity()).replaceFragment(noSendAuthNumFragment.newInstance());
             }
         });
+
+        if (getArguments() != null)
+        {
+            cancel_button.setVisibility(View.INVISIBLE);
+            back_button.setVisibility(View.VISIBLE);
+
+            String inputnumber = inputnumberText.getText().toString();
+            guidetextview.setText("인증번호 6자리를\n입력해주세요.");
+            guidnumberview.setText(getArguments().getString("cancel") + "로\n인증번호 문자메시지가 전송되었습니다.");
+            authcounttext.setVisibility(View.VISIBLE);
+
+            startTimerTask();
+
+            sendnumberbtn.setText("인증하기");
+            sendnumberbtn.setEnabled(false);
+            sendnumberbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
+
+            String content = guidnumberview.getText().toString();
+            SpannableString spannableString = new SpannableString(content);
+            int start = content.indexOf(getArguments().getString("cancel"));
+            int end = start + getArguments().getString("cancel").length();
+
+            spannableString.setSpan(new StyleSpan(Typeface.BOLD), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            guidnumberview.setText(spannableString);
+            nosendAuthText.setVisibility(View.VISIBLE);
+            inputnumberLinear.setVisibility(View.GONE);
+            inputauthnumberLinear.setVisibility(View.VISIBLE);
+        }
 
 
         return view;

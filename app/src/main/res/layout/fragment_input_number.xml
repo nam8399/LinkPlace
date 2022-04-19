@@ -17,12 +17,12 @@
         app:layout_constraintTop_toTopOf="parent">
         <Button
             android:id="@+id/back_button"
-            android:layout_marginLeft="28dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="15dp"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/backbutton2"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="18dp"
+            android:layout_height="16dp"
+            android:background="@drawable/backbtn"
             />
         <View
             android:id="@+id/weight"
@@ -33,10 +33,10 @@
             android:layout_marginBottom="15dp"/>
         <Button
             android:id="@+id/cancel_button"
-            android:layout_width="35dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginRight="28dp"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="21dp"
             android:layout_marginBottom="15dp"
             android:background="@drawable/cancelbutton" />
     </LinearLayout>
@@ -126,9 +126,9 @@
             android:id="@+id/inputnumberLinear"
             android:layout_width="350dp"
             android:layout_height="55dp"
-            android:layout_marginTop="39dp"
             android:layout_marginLeft="27dp"
             android:layout_marginRight="27dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/inputnumbertext"
             app:layout_constraintTop_toTopOf="@+id/guide_line"
             app:layout_constraintBottom_toTopOf="parent"
