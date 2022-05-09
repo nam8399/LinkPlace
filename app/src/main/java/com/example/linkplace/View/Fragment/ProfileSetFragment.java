@@ -122,6 +122,7 @@ public class ProfileSetFragment extends Fragment {
             }
         });
 
+
         return view;
     }
 }

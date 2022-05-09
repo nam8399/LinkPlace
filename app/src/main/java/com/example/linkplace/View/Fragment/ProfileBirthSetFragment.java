@@ -165,6 +165,13 @@ public class ProfileBirthSetFragment extends Fragment {
             }
         });
 
+        inputbirthbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ((MainActivity)getActivity()).replaceFragment(GenderSetFragment.newInstance());
+            }
+        });
+
 
         return view;
     }

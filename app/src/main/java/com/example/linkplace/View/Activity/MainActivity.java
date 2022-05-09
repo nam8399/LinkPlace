@@ -25,8 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         loginFragment = new LoginFragment();
 
-        getSupportFragmentManager().beginTransaction().add(R.id.frameLayout, loginFragment).commit();
-
+        getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, loginFragment).commit();
     }
 
     public void replaceFragment(Fragment fragment) {

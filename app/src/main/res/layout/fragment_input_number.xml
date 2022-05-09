@@ -146,6 +146,7 @@
                 android:lineSpacingExtra="1sp"
                 android:translationY="-0.42sp"
                 android:textColor="#2B87F4"
+                android:background="@null"
                 android:inputType="number"
                 android:textColorHint="@android:color/darker_gray"
                 android:hint="휴대전화 번호를 입력해주세요"
