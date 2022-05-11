@@ -451,8 +451,8 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         stopTimerTask();
         timerTask = new TimerTask()
         {
-            int count = 10;
-            int minute = 0 ;
+            int count = 60;
+            int minute = 4 ;
 
             @Override
             public void run()

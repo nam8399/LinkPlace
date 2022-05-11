@@ -107,7 +107,7 @@ public class GenderSetFragment extends Fragment {
         inputgenderbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((MainActivity)getActivity()).replaceFragment(ProfileBirthSetFragment.newInstance());
+                ((MainActivity)getActivity()).replaceFragment(JobSetFragment.newInstance());
             }
         });
 
