@@ -1,5 +1,6 @@
 package com.example.linkplace.View.Fragment;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -18,6 +19,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.example.linkplace.R;
+import com.example.linkplace.View.Activity.ImageSetAcitivty;
 import com.example.linkplace.View.Activity.MainActivity;
 
 import static com.example.linkplace.R.drawable.characterclickbtn;
@@ -1039,7 +1041,8 @@ public class FriendCharacterFragment extends Fragment {
         inputhobbybtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //((MainActivity)getActivity()).replaceFragment(ProfileBirthSetFragment.newInstance());
+                Intent intent = new Intent(getContext(), ImageSetAcitivty.class);
+                startActivity(intent);
             }
         });
 

@@ -1,22 +1,31 @@
 package com.example.linkplace.View.Activity;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Fragment.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
     LoginFragment loginFragment;
     OnBackPressedListener listener;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,5 +52,6 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
+
 
 }
