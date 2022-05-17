@@ -125,7 +125,7 @@
             android:orientation="horizontal">
             <FrameLayout
                 android:layout_width="99dp"
-                android:layout_height="99dp"
+                android:layout_height="105dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
                 android:layout_marginLeft="30dp"
@@ -136,6 +136,13 @@
                     android:layout_height="99dp"
                     android:background="@drawable/profileimage">
                 </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
                 <TextView
                     android:id="@+id/mainimage"
                     android:layout_width="45dp"
@@ -148,90 +155,179 @@
                     android:background="@drawable/mainimage">
                 </TextView>
             </FrameLayout>
-            <ImageView
-                android:id="@+id/image2"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image3"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image4"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image5"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="20dp"
-                android:layout_columnWeight="1"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image6"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="20dp"
-                android:layout_columnWeight="1"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                />
 
-            <ImageView
-                android:id="@+id/image7"
+            <FrameLayout
                 android:layout_width="99dp"
                 android:layout_height="99dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
-                android:layout_marginLeft="30dp"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image8"
-                android:layout_width="99dp"
-                android:layout_height="99dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
                 android:layout_marginLeft="20dp"
-                android:layout_marginBottom="20dp"
-                />
-            <ImageView
-                android:id="@+id/image9"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn2"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
                 android:layout_width="99dp"
                 android:layout_height="99dp"
                 android:layout_rowWeight="1"
                 android:layout_columnWeight="1"
-                android:background="@drawable/profileimage"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginBottom="20dp"
-                />
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn3"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="105dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn4"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image5"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn5"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image6"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn6"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="30dp"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:id="@+id/image7"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn7"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="20dp">
+                <ImageView
+                    android:id="@+id/image8"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn8"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
+            <FrameLayout
+                android:layout_width="99dp"
+                android:layout_height="99dp"
+                android:layout_rowWeight="1"
+                android:layout_columnWeight="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="15dp">
+                <ImageView
+                    android:id="@+id/image9"
+                    android:layout_width="match_parent"
+                    android:layout_height="99dp"
+                    android:background="@drawable/profileimage">
+                </ImageView>
+                <ImageView
+                    android:id="@+id/deletebtn9"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/deletebtn"
+                    />
+            </FrameLayout>
         </GridLayout>
 
         <Button

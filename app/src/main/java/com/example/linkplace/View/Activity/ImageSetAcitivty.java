@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ import com.example.linkplace.View.Fragment.ProfileBirthSetFragment;
 public class ImageSetAcitivty extends AppCompatActivity {
     Button back_button, inputimagebtn;
     ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9;
+    ImageView deletebtn1, deletebtn2, deletebtn3, deletebtn4, deletebtn5, deletebtn6, deletebtn7, deletebtn8, deletebtn9;
     TextView mainimage;
 
     private int GALLEY_CODE = 10;
@@ -65,11 +67,31 @@ public class ImageSetAcitivty extends AppCompatActivity {
         image9 = findViewById(R.id.image9);
         mainimage = findViewById(R.id.mainimage);
 
+        deletebtn1 = findViewById(R.id.deletebtn1);
+        deletebtn2 = findViewById(R.id.deletebtn2);
+        deletebtn3 = findViewById(R.id.deletebtn3);
+        deletebtn4 = findViewById(R.id.deletebtn4);
+        deletebtn5 = findViewById(R.id.deletebtn5);
+        deletebtn6 = findViewById(R.id.deletebtn6);
+        deletebtn7 = findViewById(R.id.deletebtn7);
+        deletebtn8 = findViewById(R.id.deletebtn8);
+        deletebtn9 = findViewById(R.id.deletebtn9);
+
         OnCheckPermission();
 
         mainimage.setVisibility(View.INVISIBLE);
 
+        deletebtn1.setVisibility(View.INVISIBLE);
+        deletebtn2.setVisibility(View.INVISIBLE);
+        deletebtn3.setVisibility(View.INVISIBLE);
+        deletebtn4.setVisibility(View.INVISIBLE);
+        deletebtn5.setVisibility(View.INVISIBLE);
+        deletebtn6.setVisibility(View.INVISIBLE);
+        deletebtn7.setVisibility(View.INVISIBLE);
+        deletebtn8.setVisibility(View.INVISIBLE);
+        deletebtn9.setVisibility(View.INVISIBLE);
 
+        Listener();
 
 //        back_button.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -79,6 +101,10 @@ public class ImageSetAcitivty extends AppCompatActivity {
 //        });
 
 
+
+    }
+
+    private void Listener() {
         inputimagebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +112,53 @@ public class ImageSetAcitivty extends AppCompatActivity {
                 intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
 
                 startActivityForResult(intent, GALLEY_CODE);
+            }
+        });
+
+        image1.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                imagecount = 0;
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                startActivityForResult(intent, GALLEY_CODE);
+                return true;
+            }
+        });
+
+        deletebtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainimage.setVisibility(View.INVISIBLE);
+                deletebtn1.setVisibility(View.INVISIBLE);
+                image1.setImageResource(0);
+                imagecount = 0;
+            }
+        });
+
+        deletebtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if (!image3.getDrawable().equals(null)) {
+                        Glide.with(getApplicationContext())
+                                .load(image3.getDrawable())
+                                .transform(new CenterCrop(), new RoundedCorners(30))
+                                .into(image2);
+                        image3.setImageResource(0);
+                        deletebtn3.setVisibility(View.INVISIBLE);
+                    } else {
+                        deletebtn2.setVisibility(View.INVISIBLE);
+                        image2.setImageResource(0);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    deletebtn2.setVisibility(View.INVISIBLE);
+                    image2.setImageResource(0);
+                }
+
+
+                imagecount--;
             }
         });
     }
@@ -136,12 +209,14 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .into(image1);
                         imagecount++;
                         mainimage.setVisibility(View.VISIBLE);
+                        deletebtn1.setVisibility(View.VISIBLE);
                         break;
                     case 1:
                         Glide.with(getApplicationContext())
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image2);
+                        deletebtn2.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 2:
@@ -149,6 +224,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image3);
+                        deletebtn3.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 3:
@@ -156,6 +232,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image4);
+                        deletebtn4.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 4:
@@ -163,6 +240,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image5);
+                        deletebtn5.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 5:
@@ -170,6 +248,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image6);
+                        deletebtn6.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 6:
@@ -177,6 +256,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image7);
+                        deletebtn7.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                     case 7:
@@ -184,6 +264,15 @@ public class ImageSetAcitivty extends AppCompatActivity {
                                 .load(imageUrl)
                                 .transform(new CenterCrop(), new RoundedCorners(30))
                                 .into(image8);
+                        deletebtn8.setVisibility(View.VISIBLE);
+                        imagecount++;
+                        break;
+                    case 8:
+                        Glide.with(getApplicationContext())
+                                .load(imageUrl)
+                                .transform(new CenterCrop(), new RoundedCorners(30))
+                                .into(image9);
+                        deletebtn9.setVisibility(View.VISIBLE);
                         imagecount++;
                         break;
                 }
