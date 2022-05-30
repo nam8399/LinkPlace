@@ -11,9 +11,11 @@ import androidx.loader.content.CursorLoader;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,7 +39,7 @@ import com.example.linkplace.View.Fragment.FriendCharacterFragment;
 import com.example.linkplace.View.Fragment.ProfileBirthSetFragment;
 
 public class ImageSetAcitivty extends AppCompatActivity {
-    Button back_button, inputimagebtn;
+    Button back_button, inputimagebtn, imagenextbtn;
     ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9;
     ImageView deletebtn1, deletebtn2, deletebtn3, deletebtn4, deletebtn5, deletebtn6, deletebtn7, deletebtn8, deletebtn9;
     TextView mainimage;
@@ -54,6 +56,7 @@ public class ImageSetAcitivty extends AppCompatActivity {
 
         back_button = findViewById(R.id.back_button);
         inputimagebtn = findViewById(R.id.inputimagebtn);
+        imagenextbtn = findViewById(R.id.imagenextbtn);
         String imgName = "osz.png";
 
         image1 = findViewById(R.id.image1);
@@ -90,6 +93,8 @@ public class ImageSetAcitivty extends AppCompatActivity {
         deletebtn7.setVisibility(View.INVISIBLE);
         deletebtn8.setVisibility(View.INVISIBLE);
         deletebtn9.setVisibility(View.INVISIBLE);
+
+        imagenextbtn.setEnabled(false);
 
         Listener();
 
@@ -133,6 +138,8 @@ public class ImageSetAcitivty extends AppCompatActivity {
                 deletebtn1.setVisibility(View.INVISIBLE);
                 image1.setImageResource(0);
                 imagecount = 0;
+                imagenextbtn.setEnabled(false);
+                imagenextbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
             }
         });
 
@@ -159,6 +166,14 @@ public class ImageSetAcitivty extends AppCompatActivity {
 
 
                 imagecount--;
+            }
+        });
+
+        imagenextbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PlaceActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -210,6 +225,8 @@ public class ImageSetAcitivty extends AppCompatActivity {
                         imagecount++;
                         mainimage.setVisibility(View.VISIBLE);
                         deletebtn1.setVisibility(View.VISIBLE);
+                        imagenextbtn.setEnabled(true);
+                        imagenextbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
                         break;
                     case 1:
                         Glide.with(getApplicationContext())

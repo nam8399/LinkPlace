@@ -346,7 +346,7 @@
             android:translationY="-0.42sp" />
 
         <Button
-            android:id="@+id/inputgenderbtn"
+            android:id="@+id/imagenextbtn"
             android:layout_width="350dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
