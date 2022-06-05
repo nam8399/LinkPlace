@@ -67,6 +67,8 @@ public class ProfileBirthSetFragment extends Fragment {
         inputauthbirthtext3 = view.findViewById(R.id.inputauthbirthtext3);
         inputbirthbtn = view.findViewById(R.id.inputbirthbtn);
 
+        inputbirthbtn.setEnabled(false);
+
         profile_year.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {

@@ -51,6 +51,8 @@ dependencies {
 
     implementation("com.naver.maps:map-sdk:3.13.0")
     implementation('com.google.android.gms:play-services-location:16.0.0')
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 }
 repositories {
     mavenCentral()

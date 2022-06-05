@@ -65,6 +65,7 @@ public class ProfileSetFragment extends Fragment {
         nameinputguidetext = view.findViewById(R.id.nameinputguidetext);
         inputnameLinear = view.findViewById(R.id.inputnameLinear);
 
+        inputnamebtn.setEnabled(false);
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

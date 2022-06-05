@@ -2,6 +2,7 @@ package com.example.linkplace.View.Activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,8 +12,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.linkplace.R;
+import com.example.linkplace.View.Model.FriendViewAdapter;
+import com.example.linkplace.View.Model.friendItem;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -41,18 +46,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place);
 
-        editbtn = findViewById(R.id.editbtn);
-        mylocbtn = findViewById(R.id.mylocbtn);
-        mapView = findViewById(R.id.map_fragment);
-
-        mylocbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d("PlaceAcitivity", "click my loc");
-                naverMap.setLocationSource(locationSource);
-                naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-            }
-        });
+        bindList();
 
         // 지도 객체 생성
         FragmentManager fm = getSupportFragmentManager();
@@ -69,6 +63,43 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         // 위치를 반환하는 구현체인 FusedLocationSource 생성
         locationSource =
                 new FusedLocationSource(this, PERMISSION_REQUEST_CODE);
+    }
+
+    public void bindList() {
+        editbtn = findViewById(R.id.editbtn);
+        mylocbtn = findViewById(R.id.mylocbtn);
+        mapView = findViewById(R.id.map_fragment);
+
+        mylocbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("PlaceAcitivity", "click my loc");
+                naverMap.setLocationSource(locationSource);
+                naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+            }
+        });
+
+        List<friendItem> itemList = new ArrayList<>();
+
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "24세", "여성", "저녁에 맥주한잔 콜??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "25세", "여성", "저녁에 맥주한잔 하쉴??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "26세", "여성", "저녁에 소주한잔 콜??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "27세", "여성", "저녁에 소주한잔 하쉴??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "28세", "여성", "저녁에 막걸리한잔 콜??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "29세", "여성", "저녁에 막걸리한잔 하쉴??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "30세", "여성", "저녁에 양주한잔 콜??"));
+        itemList.add(new friendItem(R.drawable.imagenotshow, "송대롱", "30세", "여성", "저녁에 양주한잔 하쉴??"));
+        itemList.add(new friendItem(R.drawable.white, "", "", "", ""));
+
+        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+
+        // Adapter 추가
+        FriendViewAdapter adapter = new FriendViewAdapter(itemList);
+        recyclerView.setAdapter(adapter);
+
+        // Layout manager 추가
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
     }
 
     @Override

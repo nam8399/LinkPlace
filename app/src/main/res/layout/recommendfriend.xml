@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@color/white"
+    android:orientation="horizontal">
+
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="120dp"
+        android:layout_height="126dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16.00dp"
+        android:background="@drawable/friendimagebgr"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/friendname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="16.00dp"
+                android:textAppearance="@style/friendname"
+                android:textStyle="bold"
+                tools:text="송대롱" />
+            <TextView
+                android:id="@+id/friendage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="150dp"
+                android:textAppearance="@style/friendage"
+                android:gravity="right"
+                tools:text="24세" />
+            <TextView
+                android:id="@+id/friendgender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="31dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="10dp"
+                android:textAppearance="@style/friendgender"
+                android:gravity="right"
+                tools:text="여성" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/friendintroduce"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginLeft="16.00dp"
+                android:layout_marginRight="15dp"
+                android:textAppearance="@style/friendintroduce"
+                tools:text="저녁에 맥주 한잔하고 싶네요!" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16.00dp"
+            android:layout_marginTop="30dp">
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="12dp"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/lockimg">
+            </ImageView>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/locknumber"
+                tools:text="5" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
