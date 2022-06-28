@@ -35,6 +35,51 @@
                     app:layout_constraintBottom_toTopOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
                 </fragment>
+
+                <ImageView
+                    android:id="@+id/linkbtn"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:background="@drawable/linkbtn"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="centerCrop"/>
+                <TextView
+                    android:id="@+id/linkbtntext"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:gravity="center"
+                    android:text="Link"
+                    android:backgroundTint="@color/white"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/linkbtn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+                <ProgressBar
+                    android:id="@+id/progressbar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:indeterminate="false"
+                    android:max="100"
+                    android:progressBackgroundTint="#E8E8E8"
+                    android:progressDrawable="@drawable/circle_progressbar"
+                    android:progressTint="#2B87F4" />
+
                 <ImageView
                     android:id="@+id/editbtn"
                     android:layout_width="75dp"
