@@ -492,5 +492,37 @@
 
     </style>
 
+    <style name="myprofilename">
+
+        <item name="android:textSize">
+            20sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #000000
+        </item>
+
+    </style>
+
+    <style name="myprofileage">
+
+        <item name="android:textSize">
+            12sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #73787E
+        </item>
+
+    </style>
+
 
 </resources>

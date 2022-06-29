@@ -3,16 +3,11 @@ package com.example.linkplace.View.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +19,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Model.FriendViewAdapter;
 import com.example.linkplace.View.Model.friendItem;
@@ -54,6 +48,9 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     ImageView editbtn, mylocbtn, linkbtn, myprofilebtn;
     TextView linkbtntext;
     ImageView whitebackbtn;
+
+    private long backKeyPressedTime = 0;
+    Toast toast;
 
     private MapView mapView;
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -112,8 +109,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View view) {
                 naverMap.setLocationSource(locationSource);
                 naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-                setMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.myfaceimg, 0);
-                linkbtn.setBackgroundResource(R.drawable.mylocmarker);
+                setMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+                linkbtn.setBackgroundResource(R.drawable.myfaceimg);
 //                linkbtn.getLayoutParams().height = 220;
 //                linkbtn.getLayoutParams().width = 220;
                 linkbtn.requestLayout();
@@ -130,7 +127,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         myprofilebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), PlaceActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
         });
@@ -266,4 +264,27 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 //            timerTask = null;
 //        }
 //    }
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() > backKeyPressedTime + 2500) {
+            backKeyPressedTime = System.currentTimeMillis();
+            Toast toast = Toast.makeText(this, "뒤로 가기 버튼을 한 번 더 누르시면 종료됩니다.", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        if (System.currentTimeMillis() <= backKeyPressedTime + 2500) {
+            moveTaskToBack(true); // 태스크를 백그라운드로 이동
+            finishAndRemoveTask(); // 액티비티 종료 + 태스크 리스트에서 지우기
+            android.os.Process.killProcess(android.os.Process.myPid()); // 앱 프로세스 종료
+        }
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0, 0);
+    }
 }
