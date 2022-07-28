@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    tools:context=".View.Activity.SettingActivity">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+        <Button
+            android:id="@+id/back_button"
+            android:layout_marginLeft="19dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="18dp"
+            android:layout_height="16dp"
+            android:background="@drawable/backbtn"
+            />
+        <TextView
+            android:layout_width="93dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:text="설정"
+            android:layout_marginLeft="19dp"
+            android:textStyle="bold"
+            android:textAppearance="@style/toptextname"
+            android:lineSpacingExtra="3sp"
+            android:translationY="-1.38sp"
+            android:gravity="left"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/guide_line"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="60dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/guide_textLinear"
+        android:orientation="horizontal">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/progress_textline2">
+        </View>
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/guide_textLinear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="48dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/myprofile_notice"
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="알림"
+                android:textAppearance="@style/myprofile_notice"
+                android:translationY="-0.36sp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.737" />
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:id="@+id/myprofile_notice2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="메시지 푸시 알림"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+                <Switch
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="190dp"
+                    android:layout_gravity="center"
+                    android:gravity="right">
+                </Switch>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="메시지 푸시 소리"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="200dp"
+                    android:layout_gravity="center"
+                    android:textAppearance="@style/myprofile_sound"
+                    android:gravity="center"
+                    android:text="소리">
+                </TextView>
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/setting_line"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="고객센터"
+                android:textAppearance="@style/myprofile_notice"
+                android:translationY="-0.36sp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.737" />
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="문의하기"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="커뮤니티 가이드라인"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <View
+                android:id="@+id/some_id"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/setting_line"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="약관"
+                android:textAppearance="@style/myprofile_notice"
+                android:translationY="-0.36sp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.737" />
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="서비스 이용약관"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="개인정보 보호약관"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/setting_line"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="앱 정보"
+                android:textAppearance="@style/myprofile_notice"
+                android:translationY="-0.36sp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.737" />
+
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="앱 버전"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="250dp"
+                    android:gravity="center"
+                    android:text="v 11.0"
+                    android:textAppearance="@style/myprofile_sound"
+                    android:textColor="#464C52">
+                </TextView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="라이센스"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="사업자 정보"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@drawable/setting_line"
+                android:layout_marginTop="10dp"
+                />
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="24dp"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="계정"
+                android:textAppearance="@style/myprofile_notice"
+                android:translationY="-0.36sp"
+                app:layout_constraintBottom_toTopOf="parent"
+                app:layout_constraintHorizontal_bias="0.737" />
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="로그아웃"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="350dp"
+                android:layout_height="45dp"
+                android:layout_gravity="center">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="top"
+                    android:lineSpacingExtra="1sp"
+                    android:text="회원 탈퇴"
+                    android:textAppearance="@style/myprofile_push"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintHorizontal_bias="0.737" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,6 +22,11 @@ import android.widget.TextView;
 
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
+import com.example.linkplace.View.Model.ProfileData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +38,11 @@ public class ProfileSetFragment extends Fragment {
     EditText inputnametext;
     TextView nameinputguidetext;
     LinearLayout inputnameLinear;
+
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
+
 
     public ProfileSetFragment() {
         // Required empty public constructor
@@ -100,6 +110,7 @@ public class ProfileSetFragment extends Fragment {
         inputnamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addProfileData(inputnametext.getText().toString(), "", "", "", "", "", "", "", "", "", "", "", "");
                 ((MainActivity)getActivity()).replaceFragment(ProfileBirthSetFragment.newInstance());
             }
         });
@@ -125,5 +136,20 @@ public class ProfileSetFragment extends Fragment {
 
 
         return view;
+    }
+
+    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
+
     }
 }

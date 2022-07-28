@@ -7,6 +7,7 @@
     android:background="@color/white"
     tools:context=".View.Activity.PlaceActivity">
     <LinearLayout
+        android:id="@+id/myprofiletop"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -16,6 +17,7 @@
         android:elevation="20dp"
         android:background="@color/white">
         <TextView
+            android:id="@+id/myprofiletoptext"
             android:layout_width="93dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -131,16 +133,29 @@
                     app:layout_constraintTop_toBottomOf="@+id/myprofileline"
                     android:background="@color/white">
                     <TextView
-                        android:layout_width="93dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="사진 (5/9)"
+                        android:text="사진 (0/9)"
                         android:layout_marginLeft="19dp"
                         android:textStyle="bold"
                         android:textAppearance="@style/toptextname"
                         android:lineSpacingExtra="3sp"
                         android:translationY="-1.38sp"
                         android:gravity="left|bottom"
+                        android:layout_gravity="center"
+                        />
+                    <TextView
+                        android:id="@+id/myprofileaddimage"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:text="사진 추가"
+                        android:textAppearance="@style/myprofileaddimage"
+                        android:lineSpacingExtra="1sp"
+                        android:translationY="-0.36sp"
+                        android:gravity="top|right"
                         android:layout_gravity="center"
                         />
 
@@ -241,15 +256,17 @@
 
                 </LinearLayout>
                 <EditText
-                    android:id="@+id/filled_butt"
+                    android:id="@+id/myprofileedittext"
                     android:layout_width="match_parent"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:layout_height="90dp"
                     android:background="@drawable/myprofileintroduce"
                     android:hint="자기소개를 입력하세요"
+                    android:maxLength="500"
                     android:gravity="top"
                     android:padding="10dp"
+                    android:textColor="@color/black"
                     android:textAppearance="@style/myprofileintroduce"
                     android:textColorHint="#CACDD2"
                     app:layout_constraintStart_toStartOf="parent"
@@ -258,13 +275,28 @@
                     />
 
                 <TextView
+                    android:id="@+id/myprofiletextcount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="300"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginLeft="320dp"
+                    android:textAppearance="@style/myprofiletextcount"
+                    android:lineSpacingExtra="1sp"
+                    android:translationY="-0.36sp"
+                    app:layout_constraintStart_toStartOf="@+id/myprofileintroduce"
+                    app:layout_constraintEnd_toEndOf="@+id/myprofileintroduce"
+                    app:layout_constraintTop_toBottomOf="@+id/myprofileintroduce">
+                </TextView>
+
+                <TextView
                     android:id="@+id/myprofilemydata"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/filled_butt"
+                    app:layout_constraintTop_toBottomOf="@+id/myprofileedittext"
                     android:layout_marginLeft="20dp"
                     android:text="내 정보"
                     android:textAppearance="@style/myprofilemydata"
@@ -295,6 +327,7 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <TextView
+                        android:id="@+id/myprofilejobbtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -330,18 +363,19 @@
                         android:lineSpacingExtra="1sp"
                         android:translationY="-0.42sp">
                     </TextView>
-                    <TextView
+                    <EditText
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="디자이너"
                         android:gravity="center|right"
                         android:layout_marginRight="10dp"
+                        android:background="@null"
                         android:textColor="#2B87F4"
                         android:textAppearance="@style/myprofilelevel"
                         android:lineSpacingExtra="1sp"
                         android:translationY="-0.42sp">
-                    </TextView>
+                    </EditText>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/myprofilelastacademy"
@@ -367,6 +401,7 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <TextView
+                        android:id="@+id/myprofileeducation"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -416,18 +451,19 @@
                         android:lineSpacingExtra="1sp"
                         android:translationY="-0.42sp">
                     </TextView>
+
                     <TextView
+                        android:id="@+id/myprofilereligionbtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="무교"
-                        android:gravity="center|right"
                         android:layout_marginRight="10dp"
-                        android:textColor="#2B87F4"
-                        android:textAppearance="@style/myprofilelevel"
+                        android:layout_weight="1"
+                        android:gravity="center|right"
                         android:lineSpacingExtra="1sp"
-                        android:translationY="-0.42sp">
-                    </TextView>
+                        android:text="무교"
+                        android:textAppearance="@style/myprofilelevel"
+                        android:textColor="#2B87F4"
+                        android:translationY="-0.42sp"></TextView>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/myprofilealcohol"
@@ -453,6 +489,7 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <TextView
+                        android:id="@+id/myprofiledrinkbtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -489,6 +526,7 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <TextView
+                        android:id="@+id/myprofilesmokebtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -525,10 +563,11 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <TextView
+                        android:id="@+id/myprofilepetbtn"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="강아지 외 1"
+                        android:text="강아지"
                         android:gravity="center|right"
                         android:layout_marginRight="10dp"
                         android:textColor="#2B87F4"
@@ -547,8 +586,8 @@
                     android:layout_marginTop="20dp">
                     <TextView
                         android:id="@+id/myprofilecharactortext"
-                        android:layout_width="29dp"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="성격"
                         android:textStyle="bold"
                         android:textAppearance="@style/myprofilecharactor"
@@ -568,32 +607,17 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/myprofilecharactor">
                     <ImageView
+                        android:id="@+id/myprofilecharactorbtn"
                         android:layout_width="29dp"
                         android:layout_height="29dp"
                         android:src="@drawable/myprofileaddcontent"
                         android:layout_marginRight="5dp">
                     </ImageView>
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:text="외향적인"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:layout_marginLeft="5dp"
-                        android:text="활발한"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_charactor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp">
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/myprofilehobby"
@@ -605,9 +629,9 @@
                     android:layout_marginTop="20dp">
                     <TextView
                         android:id="@+id/myprofilehobbytext"
-                        android:layout_width="29dp"
-                        android:layout_height="24dp"
-                        android:text="성격"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="취미"
                         android:textStyle="bold"
                         android:textAppearance="@style/myprofilecharactor"
                         android:gravity="left"
@@ -631,27 +655,11 @@
                         android:src="@drawable/myprofileaddcontent"
                         android:layout_marginRight="5dp">
                     </ImageView>
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:text="영화/드라마"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:layout_marginLeft="5dp"
-                        android:text="음악 감상"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_hobby"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp">
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
                 <View
                     android:id="@+id/myprofileline2"
@@ -705,27 +713,11 @@
                         android:src="@drawable/myprofileaddcontent"
                         android:layout_marginRight="5dp">
                     </ImageView>
-                    <TextView
-                        android:layout_width="90dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:text="영화/드라마"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/textbackground"
-                        android:layout_marginLeft="5dp"
-                        android:text="음악 감상"
-                        android:padding="4dp"
-                        android:textColor="@color/white"
-                        android:layout_gravity="center"
-                        android:gravity="center">
-                    </TextView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerview_wantfriend"
+                        android:layout_width="wrap_content"
+                        android:layout_height="29dp">
+                    </androidx.recyclerview.widget.RecyclerView>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -780,4 +772,15 @@
             </ImageView>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello World!"
+        android:background="@color/white"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

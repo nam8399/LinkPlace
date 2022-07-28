@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.text.Editable;
@@ -21,6 +22,14 @@ import android.widget.LinearLayout;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.ImageSetAcitivty;
 import com.example.linkplace.View.Activity.MainActivity;
+import com.example.linkplace.View.Model.ProfileData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import static com.example.linkplace.R.drawable.characterclickbtn;
 import static com.example.linkplace.R.drawable.characterselectbtn;
@@ -41,6 +50,13 @@ public class FriendCharacterFragment extends Fragment {
     int btn19cnt, btn20cnt, btn21cnt, btn22cnt, btn23cnt, btn24cnt, btn25cnt, btn26cnt, btn27cnt, btn28cnt;;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    boolean chr1, chr2, chr3, chr4, chr5, chr6, chr7, chr8, chr9, chr10, chr11, chr12, chr13, chr14, chr15, chr16, chr17, chr18, chr19, chr20,
+            chr21, chr22, chr23, chr24, chr25, chr26, chr27, chr28;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
+    String name, age, gender, job, charactor, hobby;
 
     // TODO: Rename and change types of parameters
 
@@ -101,8 +117,16 @@ public class FriendCharacterFragment extends Fragment {
         beerbtn = view.findViewById(R.id.beerbtn);
 
 
+        init();
 
 
+
+
+
+        return view;
+    }
+
+    private void init() {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +152,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr1 = true;
                 } else {
                     selectCount -= 1;
                     btn1cnt -= 1;
@@ -141,6 +166,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr1 = false;
                 }
             }
         });
@@ -161,6 +187,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr2 = true;
                 } else {
                     selectCount -= 1;
                     btn2cnt -= 1;
@@ -174,6 +201,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr2 = false;
                 }
             }
         });
@@ -194,6 +222,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr3 = true;
                 } else {
                     selectCount -= 1;
                     btn3cnt -= 1;
@@ -207,6 +236,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr3 = false;
                 }
             }
         });
@@ -227,6 +257,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr4 = true;
                 } else {
                     selectCount -= 1;
                     btn4cnt -= 1;
@@ -240,6 +271,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr4 = true;
                 }
             }
         });
@@ -260,6 +292,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr5 = true;
                 } else {
                     selectCount -= 1;
                     btn5cnt -= 1;
@@ -273,6 +306,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr5 = false;
                 }
             }
         });
@@ -293,6 +327,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr6 = true;
                 } else {
                     selectCount -= 1;
                     btn6cnt -= 1;
@@ -306,6 +341,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr6 = false;
                 }
             }
         });
@@ -326,6 +362,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr7 = true;
                 } else {
                     selectCount -= 1;
                     btn7cnt -= 1;
@@ -339,6 +376,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr7 = false;
                 }
             }
         });
@@ -359,6 +397,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr8 = true;
                 } else {
                     selectCount -= 1;
                     btn8cnt -= 1;
@@ -372,6 +411,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr8 = false;
                 }
             }
         });
@@ -392,6 +432,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr9 = true;
                 } else {
                     selectCount -= 1;
                     btn9cnt -= 1;
@@ -405,6 +446,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr9 = false;
                 }
             }
         });
@@ -425,6 +467,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr10 = true;
                 } else {
                     selectCount -= 1;
                     btn10cnt -= 1;
@@ -438,6 +481,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr10 = false;
                 }
             }
         });
@@ -458,6 +502,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr11 = true;
                 } else {
                     selectCount -= 1;
                     btn11cnt -= 1;
@@ -471,6 +516,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr11 = false;
                 }
             }
         });
@@ -491,6 +537,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr12 = true;
                 } else {
                     selectCount -= 1;
                     btn12cnt -= 1;
@@ -504,6 +551,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr12 = false;
                 }
             }
         });
@@ -524,6 +572,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr13 = true;
                 } else {
                     selectCount -= 1;
                     btn13cnt -= 1;
@@ -537,6 +586,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr13 = false;
                 }
             }
         });
@@ -557,6 +607,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr14 = true;
                 } else {
                     selectCount -= 1;
                     btn14cnt -= 1;
@@ -570,6 +621,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr14 = false;
                 }
             }
         });
@@ -590,6 +642,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr15 = true;
                 } else {
                     selectCount -= 1;
                     btn15cnt -= 1;
@@ -603,6 +656,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr15 = false;
                 }
             }
         });
@@ -623,6 +677,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr16 = true;
                 } else {
                     selectCount -= 1;
                     btn16cnt -= 1;
@@ -636,6 +691,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr16 = false;
                 }
             }
         });
@@ -656,6 +712,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr17 = true;
                 } else {
                     selectCount -= 1;
                     btn17cnt -= 1;
@@ -669,6 +726,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr17 = false;
                 }
             }
         });
@@ -689,6 +747,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr18 = true;
                 } else {
                     selectCount -= 1;
                     btn18cnt -= 1;
@@ -702,6 +761,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr18 = false;
                 }
             }
         });
@@ -722,6 +782,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr19 = true;
                 } else {
                     selectCount -= 1;
                     btn19cnt -= 1;
@@ -735,6 +796,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr19 = false;
                 }
             }
         });
@@ -755,6 +817,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr20 = true;
                 } else {
                     selectCount -= 1;
                     btn20cnt -= 1;
@@ -768,6 +831,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr20 = false;
                 }
             }
         });
@@ -788,6 +852,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr21 = true;
                 } else {
                     selectCount -= 1;
                     btn26cnt -= 1;
@@ -801,6 +866,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr21 = true;
                 }
             }
         });
@@ -821,6 +887,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr22 = true;
                 } else {
                     selectCount -= 1;
                     btn21cnt -= 1;
@@ -834,6 +901,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr22 = false;
                 }
             }
         });
@@ -854,6 +922,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr23 = true;
                 } else {
                     selectCount -= 1;
                     btn22cnt -= 1;
@@ -867,6 +936,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr23 = false;
                 }
             }
         });
@@ -887,6 +957,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr24 = true;
                 } else {
                     selectCount -= 1;
                     btn23cnt -= 1;
@@ -900,6 +971,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr24 = false;
                 }
             }
         });
@@ -920,6 +992,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr25 = true;
                 } else {
                     selectCount -= 1;
                     btn24cnt -= 1;
@@ -933,6 +1006,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr25 = false;
                 }
             }
         });
@@ -953,6 +1027,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr26 = true;
                 } else {
                     selectCount -= 1;
                     btn25cnt -= 1;
@@ -966,6 +1041,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr26 = false;
                 }
             }
         });
@@ -986,6 +1062,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr27 = true;
                 } else {
                     selectCount -= 1;
                     btn27cnt -= 1;
@@ -999,6 +1076,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr27 = false;
                 }
             }
         });
@@ -1019,6 +1097,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                     inputhobbybtn.setText("다음 (" + selectCount + "/10)");
+                    chr28 = true;
                 } else {
                     selectCount -= 1;
                     btn28cnt -= 1;
@@ -1032,6 +1111,7 @@ public class FriendCharacterFragment extends Fragment {
                         inputhobbybtn.setEnabled(false);
                         inputhobbybtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
+                    chr28 = false;
                 }
             }
         });
@@ -1043,10 +1123,245 @@ public class FriendCharacterFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), ImageSetAcitivty.class);
                 startActivity(intent);
+                addProfileData(name, age, gender, job, charactor, hobby, chrResult(), "", "", "", "", "", "");
             }
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
-        return view;
+        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+
+                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                name = profileData1.getName();
+                age = profileData1.getBirth();
+                gender = profileData1.getGender();
+                job = profileData1.getJob();
+                charactor = profileData1.getCharactor();
+                hobby = profileData1.getHobby();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+    }
+
+    public String chrResult() {
+        String result = "";
+
+        if (chr1) {
+            result += "취미가 비슷한";
+        }
+
+        if (chr2) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "색다른 취미를 가진";
+        }
+
+        if (chr3) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "성격이 비슷한";
+        }
+
+        if (chr4) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "성격이 다른";
+        }
+
+        if (chr5) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "말 잘하는";
+        }
+
+        if (chr6) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "말 잘 들어주는";
+        }
+
+        if (chr7) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "술 좋아하는";
+        }
+
+        if (chr8) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "카페 좋아하는";
+        }
+
+        if (chr9) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "맛집 투어 좋아하는";
+        }
+
+        if (chr10) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "옷 좋아하는";
+        }
+
+        if (chr11) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "연상";
+        }
+
+        if (chr12) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "연하";
+        }
+
+        if (chr13) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "동갑";
+        }
+
+        if (chr14) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "같은 동네";
+        }
+
+        if (chr15) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "외향적인 ";
+        }
+
+        if (chr16) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "내성적인";
+        }
+
+        if (chr17) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "홟발한";
+        }
+
+        if (chr18) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "조용한";
+        }
+
+        if (chr19) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "귀여운";
+        }
+
+        if (chr20) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "어른스러운";
+        }
+
+        if (chr21) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "열정적인";
+        }
+
+        if (chr22) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "느긋한";
+        }
+
+        if (chr23) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "4차원적인";
+        }
+
+        if (chr24) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "예의 바른";
+        }
+
+        if (chr25) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "유머러스한";
+        }
+
+        if (chr26) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "진지한";
+        }
+
+        if (chr27) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "도전적인";
+        }
+
+        if (chr28) {
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "신중한";
+        }
+
+        return result;
+    }
+
+    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
+
     }
 }

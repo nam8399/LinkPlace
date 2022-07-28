@@ -3,10 +3,13 @@ package com.example.linkplace.View.Activity;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.RemoteException;
 import android.util.Log;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -16,10 +19,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.linkplace.R;
+import com.example.linkplace.View.Fragment.MyProfileJobFragement;
+import com.example.linkplace.View.Fragment.SettingFragment;
 import com.example.linkplace.View.Model.FriendViewAdapter;
 import com.example.linkplace.View.Model.friendItem;
 import com.naver.maps.geometry.LatLng;
@@ -44,13 +50,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     private NaverMap naverMap;
     private FusedLocationSource locationSource;
 
-    ProgressBar progressbar;
     ImageView editbtn, mylocbtn, linkbtn, myprofilebtn;
-    TextView linkbtntext;
+    TextView linkbtntext, linkcounttext;
     ImageView whitebackbtn;
+    FrameLayout frameLayout;
 
     private long backKeyPressedTime = 0;
-    Toast toast;
+
+    TimerTask timerTask;
+    Timer timer = new Timer();
 
     private MapView mapView;
     private static final int PERMISSION_REQUEST_CODE = 100;
@@ -90,9 +98,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         linkbtn = findViewById(R.id.linkbtn);
         whitebackbtn = findViewById(R.id.whitebackbtn);
         linkbtntext = findViewById(R.id.linkbtntext);
-        progressbar = findViewById(R.id.progressbar);
         myprofilebtn = findViewById(R.id.myprofilebtn);
-        progressbar.setVisibility(View.INVISIBLE);
+        linkcounttext = findViewById(R.id.linkcounttext);
+        frameLayout = findViewById(R.id.frameLayout);
+
+        frameLayout.setVisibility(View.INVISIBLE);
 
 
         mylocbtn.setOnClickListener(new View.OnClickListener() {
@@ -110,7 +120,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 naverMap.setLocationSource(locationSource);
                 naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
                 setMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
-                linkbtn.setBackgroundResource(R.drawable.myfaceimg);
+                linkbtn.setBackgroundResource(R.drawable.myprofilesample);
 //                linkbtn.getLayoutParams().height = 220;
 //                linkbtn.getLayoutParams().width = 220;
                 linkbtn.requestLayout();
@@ -128,6 +138,15 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), MyProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent);
+            }
+        });
+
+        editbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SettingActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
             }
@@ -207,63 +226,70 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private void startTimerTask() throws RemoteException
     {
-
-        Timer timer = new Timer();
-        progressbar.setVisibility(View.VISIBLE);
-        TimerTask timerTask = new TimerTask()
+        stopTimerTask();
+        timerTask = new TimerTask()
         {
-            double count = 0;
-            double max = 60;
+            int count = 60;
+            int minute = 29;
 
             @Override
             public void run()
             {
-                double percentage = count/max * 100;
-                Log.d("count", String.valueOf(count) + "percentage : " + percentage);
-                count++;
-
-                if (count == max) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            // call the invalidate()
-                            Timer timer = new Timer();
-                            timer.cancel();
-                            linkbtn.setBackgroundResource(R.drawable.linkbtn);
-                            linkbtntext.setText("Link");
-                            progressbar.setVisibility(View.INVISIBLE);
-                            linkbtn.setEnabled(true);
-                            removeMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
-                        }
-                    });
-
+                count--;
+                if (count == -1) {
+                    minute--;
+                    count = 59;
                 }
-                progressbar.post(new Runnable() {
+                if (count == 0 && minute == 0) {
+                    timerTask.cancel();
+                }
+
+                linkcounttext.post(new Runnable() {
                     @Override
                     public void run() {
-                        if (count == 0) {
-                            progressbar.setProgress(0);
-                        } else if (count > 0) {
-                            progressbar.setProgress((int) percentage);
-                        } else if (count == max) {
-                            progressbar.setProgress(0);
+                        if (count == 0 && minute == 0) {
                             linkbtn.setBackgroundResource(R.drawable.linkbtn);
+                            linkbtntext.setText("Link");
+                            linkbtn.setEnabled(true);
+                            removeMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+                        } else if (count < 10) {
+                            linkcounttext.setText(minute + ":"+ "0" + count);
+                        }
+                        else {
+                            linkcounttext.setText(minute + ":"+ count);
                         }
                     }
                 });
+
+//                if (count == max) {
+//                    runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            // call the invalidate()
+//                            Timer timer = new Timer();
+//                            timer.cancel();
+//                            linkbtn.setBackgroundResource(R.drawable.linkbtn);
+//                            linkbtntext.setText("Link");
+//                            linkbtn.setEnabled(true);
+//                            removeMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+//                        }
+//                    });
+//
+//                }
             }
         };
         timer.schedule(timerTask,0 ,1000);
     }
 
-//    private void stopTimerTask()
-//    {
-//        if(timerTask != null)
-//        {
-//            timerTask.cancel();
-//            timerTask = null;
-//        }
-//    }
+    private void stopTimerTask()
+    {
+        if(timerTask != null)
+        {
+            linkcounttext.setText("30:00");
+            timerTask.cancel();
+            timerTask = null;
+        }
+    }
 
     @Override
     public void onBackPressed() {

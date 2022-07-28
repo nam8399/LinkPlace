@@ -1,54 +1,52 @@
 package com.example.linkplace.View.Fragment;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.provider.MediaStore;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextWatcher;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
-import com.example.linkplace.View.Model.ProfileData;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.example.linkplace.View.Activity.MyProfileActivity;
 
 import static com.example.linkplace.R.drawable.genderclickbtn;
 import static com.example.linkplace.R.drawable.genderselectbutton;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ProfileBirthSetFragment#newInstance} factory method to
+ * Use the {@link MyProfileJobFragement#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class JobSetFragment extends Fragment {
-    Button back_button, inputjobbtn, studentbtn, workerbtn, businessbtn, armybtn, preparingbtn, etcbtn;
-
-    private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference databaseReference = database.getReference();
-    String name, age, gender, job;
+public class MyProfileJobFragement extends Fragment {
+    Button inputjobbtn, studentbtn, workerbtn, businessbtn, armybtn, preparingbtn, etcbtn;
+    private String clickposition;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
     // TODO: Rename and change types of parameters
 
-    public JobSetFragment() {
+    public MyProfileJobFragement() {
         // Required empty public constructor
     }
 
@@ -56,12 +54,11 @@ public class JobSetFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment ProfileBirthSetFragment.
+     * @return A new instance of fragment MyProfileJobFragement.
      */
     // TODO: Rename and change types and number of parameters
-
-    public static JobSetFragment newInstance() {
-        return new JobSetFragment();
+    public static MyProfileJobFragement newInstance() {
+        return new MyProfileJobFragement();
     }
 
     @Override
@@ -72,8 +69,8 @@ public class JobSetFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_job_set, container, false);
-        back_button = view.findViewById(R.id.back_button);
+        View view = inflater.inflate(R.layout.fragment_my_profile_job_fragement, container, false);
+
         inputjobbtn = view.findViewById(R.id.inputjobbtn);
         studentbtn = view.findViewById(R.id.studentbtn);
         workerbtn = view.findViewById(R.id.workerbtn);
@@ -82,21 +79,6 @@ public class JobSetFragment extends Fragment {
         preparingbtn = view.findViewById(R.id.preparingbtn);
         etcbtn = view.findViewById(R.id.etcbtn);
 
-        init();
-
-
-
-
-        return view;
-    }
-
-    private void init() {
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(GenderSetFragment.newInstance());
-            }
-        });
 
         inputjobbtn.setEnabled(false);
 
@@ -125,7 +107,7 @@ public class JobSetFragment extends Fragment {
                 etcbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "학생";
+                clickposition = "0";
             }
         });
 
@@ -154,7 +136,7 @@ public class JobSetFragment extends Fragment {
                 etcbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "직장인";
+                clickposition = "1";
             }
         });
 
@@ -183,7 +165,7 @@ public class JobSetFragment extends Fragment {
                 etcbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "사업가";
+                clickposition = "2";
             }
         });
 
@@ -212,7 +194,7 @@ public class JobSetFragment extends Fragment {
                 etcbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "군인";
+                clickposition = "3";
             }
         });
 
@@ -241,7 +223,7 @@ public class JobSetFragment extends Fragment {
                 etcbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "취업준비중";
+                clickposition = "4";
             }
         });
 
@@ -270,51 +252,21 @@ public class JobSetFragment extends Fragment {
                 preparingbtn.setTypeface(Typeface.DEFAULT);
                 inputjobbtn.setEnabled(true);
                 inputjobbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#2B87F4")));
-                job = "기타";
+                clickposition = "5";
             }
         });
 
         inputjobbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ((MainActivity)getActivity()).replaceFragment(CharacterSetFragment.newInstance());
-                addProfileData(name, age, gender, job, "", "", "", "", "", "", "", "", "");
+                Intent intent = new Intent(getContext(), MyProfileActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                intent.putExtra("Job position", clickposition);
+                startActivity(intent);
+                getActivity().finish();
             }
         });
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
-
-                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
-                name = profileData1.getName();
-                age = profileData1.getBirth();
-                gender = profileData1.getGender();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
-            }
-        });
-    }
-
-    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
-                               String religion, String drink, String smoke, String pet) {
-
-        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
-        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
-
-        //animal.java에서 선언했던 함수.
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
-        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
-
+        return view;
     }
 }

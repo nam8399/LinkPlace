@@ -1,5 +1,6 @@
 package com.example.linkplace.View.Fragment;
 
+import android.app.Activity;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
 import com.example.linkplace.View.Activity.OnBackPressedListener;
+import com.example.linkplace.View.Model.ProfileData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -38,6 +40,10 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -63,6 +69,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     Button sendnumberbtn, back_button, cancel_button;
     LinearLayout inputauthnumberLinear, inputnumberLinear;
     String phoneNum = "+821012341234";
+    String authNum;
 
     TimerTask timerTask;
     Timer timer = new Timer();
@@ -93,7 +100,6 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_input_number, container, false);
         activity = (MainActivity) getActivity();
-        initCallBack();
         sendnumberbtn = view.findViewById(R.id.inputnumberbtn);
         cancel_button = view.findViewById(R.id.cancel_button);
         back_button = view.findViewById(R.id.back_button);
@@ -117,6 +123,9 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
         sendnumberbtn.setEnabled(false);
         authcounttext.setVisibility(View.INVISIBLE);
         back_button.setVisibility(View.INVISIBLE);
+
+
+        mAuth = FirebaseAuth.getInstance();
 
         inputnumberText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -332,11 +341,27 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 if (sendnumberbtn.getText().toString().equals("전송하기")) {
                     cancel_button.setVisibility(View.INVISIBLE);
                     back_button.setVisibility(View.VISIBLE);
-
-                    String inputnumber = inputnumberText.getText().toString();
+                    initCallBack();
+                    String inputnumber = "+82" + inputnumberText.getText().toString().substring(1);
                     guidetextview.setText("인증번호 6자리를\n입력해주세요.");
                     guidnumberview.setText(inputnumber + "로\n인증번호 문자메시지가 전송되었습니다.");
                     authcounttext.setVisibility(View.VISIBLE);
+
+                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                            inputnumber,
+                            60,
+                            TimeUnit.SECONDS,
+                            activity,
+                            mCallbacks
+                    );
+
+//                    PhoneAuthProvider.getInstance().verifyPhoneNumber(
+//                            phoneNum,
+//                            60,
+//                            TimeUnit.SECONDS,
+//                            activity,
+//                            mCallbacks
+//                    );
 
                     startTimerTask();
 
@@ -356,7 +381,14 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     inputnumberLinear.setVisibility(View.GONE);
                     inputauthnumberLinear.setVisibility(View.VISIBLE);
                 } else if (sendnumberbtn.getText().toString().equals("인증하기")) {
-                    ((MainActivity)getActivity()).replaceFragment(ProfileSetFragment.newInstance());
+                    authNum = inputauthnumbertext.getText().toString();
+                    authNum += inputauthnumbertext2.getText().toString();
+                    authNum += inputauthnumbertext3.getText().toString();
+                    authNum += inputauthnumbertext4.getText().toString();
+                    authNum += inputauthnumbertext5.getText().toString();
+                    authNum += inputauthnumbertext6.getText().toString();
+                    Log.d(TAG, "입력 인증번호 : " + authNum);
+                    signInWithPhoneAuthCredential(PhoneAuthProvider.getCredential(mVerificationId, authNum));
                 } else if (sendnumberbtn.getText().toString().equals("재전송하기")) {
                     Toast toast = Toast.makeText(getContext(), "인증번호가 재전송 되었습니다.", Toast.LENGTH_SHORT);
                     toast.show();
@@ -532,8 +564,6 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 //     detect the incoming verification SMS and perform verification without
                 //     user action.
                 Log.d(TAG, "onVerificationCompleted:" + credential);
-
-                signInWithPhoneAuthCredential(credential);
             }
 
             @Override
@@ -578,18 +608,23 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener((Executor) this, new OnCompleteListener<AuthResult>() {
+                .addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
+                            Toast toast = Toast.makeText(getContext(), "인증이 성공하였습니다.", Toast.LENGTH_SHORT);
+                            toast.show();
+                            ((MainActivity)getActivity()).replaceFragment(ProfileSetFragment.newInstance());
 
-                            FirebaseUser user = task.getResult().getUser();
+
                             // Update UI
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
+                            Toast toast = Toast.makeText(getContext(), "인증이 실패하였습니다.", Toast.LENGTH_SHORT);
+                            toast.show();
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
                             }
