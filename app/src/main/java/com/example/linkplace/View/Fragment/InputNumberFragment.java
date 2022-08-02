@@ -1,6 +1,7 @@
 package com.example.linkplace.View.Fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
 import com.example.linkplace.View.Activity.OnBackPressedListener;
+import com.example.linkplace.View.Activity.PlaceActivity;
 import com.example.linkplace.View.Model.ProfileData;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -63,6 +65,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
     String TAG = "InputNumberFragment";
     String mVerificationId = "";
+    private static final String KEY_VERIFICATION_ID = "key_verification_id";
     PhoneAuthProvider.ForceResendingToken mResendToken;
     TextView guidetextview, guidnumberview, nosendAuthText, inputnumberText, inputauthnumbertext, inputauthnumbertext2,
             inputauthnumbertext3, inputauthnumbertext4, inputauthnumbertext5, inputauthnumbertext6, authcounttext, nosendauthnumtext;
@@ -334,6 +337,14 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
             }
         });
 
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(getContext(), PlaceActivity.class);
+            startActivity(intent);
+            getActivity().finish();
+            Toast toast = Toast.makeText(getContext(), "자동 로그인 성공", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+
         sendnumberbtn.setOnClickListener(new View.OnClickListener() { // 버튼 클릭 시
             @Override
             public void onClick(View view) {
@@ -388,6 +399,9 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     authNum += inputauthnumbertext5.getText().toString();
                     authNum += inputauthnumbertext6.getText().toString();
                     Log.d(TAG, "입력 인증번호 : " + authNum);
+                    if (mVerificationId == null && savedInstanceState != null) {
+                        onRestoreInstanceState(savedInstanceState);
+                    }
                     signInWithPhoneAuthCredential(PhoneAuthProvider.getCredential(mVerificationId, authNum));
                 } else if (sendnumberbtn.getText().toString().equals("재전송하기")) {
                     Toast toast = Toast.makeText(getContext(), "인증번호가 재전송 되었습니다.", Toast.LENGTH_SHORT);
@@ -631,5 +645,15 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(KEY_VERIFICATION_ID,mVerificationId);
+    }
+
+    public void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        mVerificationId = savedInstanceState.getString(KEY_VERIFICATION_ID);
     }
 }
