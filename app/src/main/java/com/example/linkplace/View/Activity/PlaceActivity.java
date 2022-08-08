@@ -27,7 +27,16 @@ import com.example.linkplace.R;
 import com.example.linkplace.View.Fragment.MyProfileJobFragement;
 import com.example.linkplace.View.Fragment.SettingFragment;
 import com.example.linkplace.View.Model.FriendViewAdapter;
+import com.example.linkplace.View.Model.LinkData;
+import com.example.linkplace.View.Model.ProfileData;
 import com.example.linkplace.View.Model.friendItem;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -54,6 +63,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     TextView linkbtntext, linkcounttext;
     ImageView whitebackbtn;
     FrameLayout frameLayout;
+    ArrayList<Marker> markers = new ArrayList<>();
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
+    String name, age, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet;
 
     private long backKeyPressedTime = 0;
 
@@ -66,7 +80,6 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
     };
-    private Marker marker = new Marker();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,10 +132,9 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             public void onClick(View view) {
                 naverMap.setLocationSource(locationSource);
                 naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
-                setMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+//                setMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+                addMapData(locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), name, age, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
                 linkbtn.setBackgroundResource(R.drawable.myprofilesample);
-//                linkbtn.getLayoutParams().height = 220;
-//                linkbtn.getLayoutParams().width = 220;
                 linkbtn.requestLayout();
                 linkbtntext.setText("");
                 linkbtn.setEnabled(false);
@@ -172,6 +184,64 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         // Layout manager 추가
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+
+                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                name = profileData1.getName();
+                age = profileData1.getBirth();
+                gender = profileData1.getGender();
+                job = profileData1.getJob();
+                charactor = profileData1.getHobby();
+                hobby = profileData1.getHobby();
+                wantfriend = profileData1.getWantfriend();
+                ImageUrl = profileData1.getImageUrl();
+                education = profileData1.getEducation();
+                religion = profileData1.getReligion();
+                drink = profileData1.getDrink();
+                smoke = profileData1.getSmoke();
+                pet = profileData1.getPet();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
+
+        if (markers.size() != 0) {
+            for (int i=0; i < markers.size(); i++) {
+                markers.get(i).setMap(null);
+            }
+        }
+
+        ValueEventListener mValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    LinkData linkData = postSnapshot.getValue(LinkData.class);
+
+                   Marker marker = new Marker();
+                   marker.setMap(null);
+
+                   markers.add(marker);
+                   setMarker(marker, linkData.getLat(), linkData.getLon(), R.drawable.mylocmarker, 0);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        databaseReference.child("Link").addValueEventListener(mValueEventListener);
 
     }
 
@@ -251,7 +321,7 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                             linkbtn.setBackgroundResource(R.drawable.linkbtn);
                             linkbtntext.setText("Link");
                             linkbtn.setEnabled(true);
-                            removeMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
+//                            removeMarker(marker, locationSource.getLastLocation().getLatitude(), locationSource.getLastLocation().getLongitude(), R.drawable.mylocmarker, 0);
                         } else if (count < 10) {
                             linkcounttext.setText(minute + ":"+ "0" + count);
                         }
@@ -312,5 +382,66 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
     protected void onPause() {
         super.onPause();
         overridePendingTransition(0, 0);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (markers.size() != 0) {
+            for (int i=0; i < markers.size(); i++) {
+                markers.get(i).setMap(null);
+            }
+        }
+
+        ValueEventListener mValueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    String key = postSnapshot.getKey();
+                    LinkData linkData = postSnapshot.getValue(LinkData.class);
+
+                    Marker marker = new Marker();
+                    marker.setMap(null);
+
+                    markers.add(marker);
+                    setMarker(marker, linkData.getLat(), linkData.getLon(), R.drawable.mylocmarker, 0);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        };
+        databaseReference.child("Link").addValueEventListener(mValueEventListener);
+    }
+
+    public void addMapData(double lat, double lon, String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+
+        LinkData linkData = new LinkData(lat, lon, name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child("Link").push().setValue(linkData);
+
+    }
+
+    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
+
     }
 }

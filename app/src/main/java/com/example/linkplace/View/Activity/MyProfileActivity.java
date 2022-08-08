@@ -14,11 +14,14 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Outline;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewOutlineProvider;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -52,6 +55,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,7 +64,7 @@ public class MyProfileActivity extends AppCompatActivity {
     ImageView mapbtn;
     TextView myprofileaddimage, myprofiletoptext, myprofiletextcount, myprofilejobbtn, myprofilereligionbtn, myprofiledrinkbtn, myprofilesmokebtn,
             myprofilepetbtn, myprofileeducation, myprofilename, myprofilegender, myprofileage;
-    ImageView myprofilecharactorbtn, image1;
+    ImageView myprofilecharactorbtn, image1, circleimage;
     EditText myprofileedittext;
     LinearLayout myprofiletop;
     private long backKeyPressedTime = 0;
@@ -76,7 +80,7 @@ public class MyProfileActivity extends AppCompatActivity {
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
-    String name, age, gender, job, charactor, hobby, wantfriend;
+    String name, age, gender, job, charactor, hobby, wantfriend, imageUrl, education, religion, drink, smoke, pet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +116,7 @@ public class MyProfileActivity extends AppCompatActivity {
         myprofilegender = findViewById(R.id.myprofilegender);
         myprofileage = findViewById(R.id.myprofileage);
         image1 = findViewById(R.id.image1);
+        circleimage = findViewById(R.id.circleimage);
 
         Intent intent = getIntent();
 
@@ -124,12 +129,6 @@ public class MyProfileActivity extends AppCompatActivity {
         Log.d("뭐자","에듀테이션22" + myeducation);
 
         init();
-        try {
-            getCharactorData();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
 
         try {
             byte[] byteArray = getIntent().getByteArrayExtra("image1");
@@ -171,6 +170,7 @@ public class MyProfileActivity extends AppCompatActivity {
             myjob = myprofilejobbtn.getText().toString();
             editor.putString("MyJob", myjob);
             editor.apply();
+            job = myjob;
         }
 
         try {
@@ -197,6 +197,7 @@ public class MyProfileActivity extends AppCompatActivity {
             myreligion = myprofilereligionbtn.getText().toString();
             editor.putString("MyReligion", myreligion);
             editor.apply();
+            religion = myreligion;
         }
 
         try {
@@ -226,6 +227,7 @@ public class MyProfileActivity extends AppCompatActivity {
             mydrink = myprofiledrinkbtn.getText().toString();
             editor.putString("MyDrink", mydrink);
             editor.apply();
+            drink = mydrink;
         }
 
         try {
@@ -252,6 +254,7 @@ public class MyProfileActivity extends AppCompatActivity {
             mysmoke = myprofilesmokebtn.getText().toString();
             editor.putString("MySmoke", mysmoke);
             editor.apply();
+            smoke = mysmoke;
         }
 
 
@@ -285,6 +288,7 @@ public class MyProfileActivity extends AppCompatActivity {
             mypet = myprofilepetbtn.getText().toString();
             editor.putString("MyPet", mypet);
             editor.apply();
+            pet = mypet;
         }
 
 
@@ -340,7 +344,7 @@ public class MyProfileActivity extends AppCompatActivity {
         } finally {
             editor.putString("MyEducation", myeducation);
             editor.apply();
-
+            education = myeducation;
         }
 
 
@@ -385,8 +389,12 @@ public class MyProfileActivity extends AppCompatActivity {
         myprofilejobbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MainActivity mainActivity = new MainActivity();
-                mainActivity.replaceFragment(SettingFragment.newInstance());
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                MyProfileJobFragement myProfileJobFragement = new MyProfileJobFragement();
+                frameLayout.setVisibility(View.VISIBLE);
+                fragmentTransaction.add(R.id.frameLayout, myProfileJobFragement).commit();
+                myprofiletop.setVisibility(View.INVISIBLE);
             }
         });
 
@@ -478,8 +486,25 @@ public class MyProfileActivity extends AppCompatActivity {
                 charactor = profileData1.getCharactor();
                 hobby = profileData1.getHobby();
                 wantfriend = profileData1.getWantfriend();
-                myprofilename.setText(name);
-                myprofilejobbtn.setText(job);
+                imageUrl = profileData1.getImageUrl();
+                education = profileData1.getEducation();
+                religion = profileData1.getReligion();
+                drink = profileData1.getDrink();
+                smoke = profileData1.getSmoke();
+                pet = profileData1.getPet();
+
+                byte[] b = binaryStringToByteArray(imageUrl);
+                ByteArrayInputStream is = new ByteArrayInputStream(b);
+                Drawable reviewImage = Drawable.createFromStream(is, "reviewImage");
+                circleimage.setImageDrawable(reviewImage);
+                image1.setImageDrawable(reviewImage);
+                image1.setOutlineProvider(new ViewOutlineProvider() {
+                    @Override
+                    public void getOutline(View view, Outline outline) {
+                        outline.setRoundRect(0,0,view.getWidth(), view.getHeight(), 40);
+                    }
+                });
+                image1.setClipToOutline(true);
 
                 if (gender.equals("남성")) {
                     myprofilegender.setText("남성");
@@ -491,6 +516,10 @@ public class MyProfileActivity extends AppCompatActivity {
                 myprofileage.setText(age + "세");
 
                 String charactorlist[] = charactor.split(",");
+
+                adapter.clear();
+                adapter2.clear();
+                adapter3.clear();
 
                 for (int i = 0; i < charactorlist.length; i++) {
                     // 각 List의 값들을 data 객체에 set 해줍니다.
@@ -520,6 +549,7 @@ public class MyProfileActivity extends AppCompatActivity {
                 adapter2.notifyDataSetChanged();
 
                 String wanfriendlist[] = wantfriend.split(",");
+
 
                 for (int i = 0; i < wanfriendlist.length; i++) {
                     // 각 List의 값들을 data 객체에 set 해줍니다.
@@ -581,23 +611,6 @@ public class MyProfileActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         recyclerView2.setAdapter(adapter2);
         recyclerview3.setAdapter(adapter3);
-    }
-
-    private void getCharactorData() {
-        Intent intent = getIntent();
-        ArrayList<String> list = (ArrayList<String>) intent.getSerializableExtra("Charactor position");
-
-        for (int i = 0; i < list.size(); i++) {
-            // 각 List의 값들을 data 객체에 set 해줍니다.
-            charactorData data = new charactorData();
-            data.setTitle(list.get(i));
-
-            // 각 값이 들어간 data를 adapter에 추가합니다.
-            adapter.addItem(data);
-        }
-
-        // adapter의 값이 변경되었다는 것을 알려줍니다.
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -816,5 +829,25 @@ public class MyProfileActivity extends AppCompatActivity {
 
 
 
+    }
+
+    public static byte[] binaryStringToByteArray(String s) {
+        int count = s.length() / 8;
+        byte[] b = new byte[count];
+        for (int i = 1; i < count; ++i) {
+            String t = s.substring((i - 1) * 8, i * 8);
+            b[i - 1] = binaryStringToByte(t);
+        }
+        return b;
+    }
+
+    // 스트링을 바이너리 바이트로
+    public static byte binaryStringToByte(String s) {
+        byte ret = 0, total = 0;
+        for (int i = 0; i < 8; ++i) {
+            ret = (s.charAt(7 - i) == '1') ? (byte) (1 << i) : 0;
+            total = (byte) (ret | total);
+        }
+        return total;
     }
 }

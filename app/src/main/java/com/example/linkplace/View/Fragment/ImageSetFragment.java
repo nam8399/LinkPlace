@@ -8,6 +8,8 @@ import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -34,7 +36,16 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
+import com.example.linkplace.View.Model.ProfileData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 
 import static android.app.Activity.RESULT_OK;
@@ -48,9 +59,13 @@ public class ImageSetFragment extends Fragment {
     ImageView image1, image2, image3, image4, image5, image6, image7, image8, image9;
     Button back_button, inputimagebtn;
     LinearLayout inputauthbirthtext, inputauthbirthtext2, inputauthbirthtext3;
+    String name, age, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet;
 
     private int GALLEY_CODE = 10;
     static final int PERMISSIONS_REQUEST = 0x00000001;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -128,6 +143,35 @@ public class ImageSetFragment extends Fragment {
             }
         });
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+
+                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                name = profileData1.getName();
+                age = profileData1.getBirth();
+                gender = profileData1.getGender();
+                job = profileData1.getJob();
+                charactor = profileData1.getHobby();
+                hobby = profileData1.getHobby();
+                wantfriend = profileData1.getWantfriend();
+                ImageUrl = profileData1.getImageUrl();
+                education = profileData1.getEducation();
+                religion = profileData1.getReligion();
+                drink = profileData1.getDrink();
+                smoke = profileData1.getSmoke();
+                pet = profileData1.getPet();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+            }
+        });
 
         return view;
     }
@@ -151,7 +195,35 @@ public class ImageSetFragment extends Fragment {
     }
 
 
+    public void updateFirebase(int index) {
+        Drawable image = image1.getDrawable();
+        String simage = "";
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        simage = byteArrayToBinaryString(reviewImage);
+        databaseReference.child("image").setValue(simage);
+    }
 
+    public static String byteArrayToBinaryString(byte[] b) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < b.length; ++i) {
+            sb.append(byteToBinaryString(b[i]));
+        }
+        return sb.toString();
+    }
+
+    // 바이너리 바이트를 스트링으로
+    public static String byteToBinaryString(byte n) {
+        StringBuilder sb = new StringBuilder("00000000");
+        for (int bit = 0; bit < 8; bit++) {
+            if (((n >> bit) & 1) > 0) {
+                sb.setCharAt(7 - bit, '1');
+            }
+        }
+        return sb.toString();
+    }
 
 
 

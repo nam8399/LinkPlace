@@ -16,6 +16,8 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -37,6 +39,16 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.linkplace.R;
 import com.example.linkplace.View.Fragment.FriendCharacterFragment;
 import com.example.linkplace.View.Fragment.ProfileBirthSetFragment;
+import com.example.linkplace.View.Model.ProfileData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.io.ByteArrayOutputStream;
 
 public class ImageSetAcitivty extends AppCompatActivity {
     Button back_button, inputimagebtn, imagenextbtn;
@@ -48,6 +60,10 @@ public class ImageSetAcitivty extends AppCompatActivity {
     static final int PERMISSIONS_REQUEST = 0x00000001;
     private String imageUrl="";
     int imagecount = 0;
+
+    String name, age, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet;
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -173,8 +189,34 @@ public class ImageSetAcitivty extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PlaceActivity.class);
+                imageUrl = updateImage();
+                addProfileData(name, age, gender, job, charactor, hobby, wantfriend, imageUrl, "", "", "", "", "");
                 startActivity(intent);
                 finish();
+            }
+        });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+
+                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                name = profileData1.getName();
+                age = profileData1.getBirth();
+                gender = profileData1.getGender();
+                job = profileData1.getJob();
+                charactor = profileData1.getCharactor();
+                hobby = profileData1.getHobby();
+                wantfriend = profileData1.getWantfriend();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
     }
@@ -318,7 +360,50 @@ public class ImageSetAcitivty extends AppCompatActivity {
         return  url;
     }
 
+    public String updateImage() {
+        Drawable image = image1.getDrawable();
+        String simage = "";
+        Bitmap bitmap = ((BitmapDrawable) image).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        byte[] reviewImage = stream.toByteArray();
+        simage = byteArrayToBinaryString(reviewImage);
+        return simage;
+    }
 
+    public static String byteArrayToBinaryString(byte[] b) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < b.length; ++i) {
+            sb.append(byteToBinaryString(b[i]));
+        }
+        return sb.toString();
+    }
+
+    // 바이너리 바이트를 스트링으로
+    public static String byteToBinaryString(byte n) {
+        StringBuilder sb = new StringBuilder("00000000");
+        for (int bit = 0; bit < 8; bit++) {
+            if (((n >> bit) & 1) > 0) {
+                sb.setCharAt(7 - bit, '1');
+            }
+        }
+        return sb.toString();
+    }
+
+    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
+
+    }
 
 
 }

@@ -3,21 +3,36 @@ package com.example.linkplace.View.Fragment;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.Outline;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.Button;
 
 import com.example.linkplace.R;
 import com.example.linkplace.View.Activity.MainActivity;
 import com.example.linkplace.View.Activity.MyProfileActivity;
+import com.example.linkplace.View.Model.ProfileData;
+import com.example.linkplace.View.Util.charactorData;
+import com.example.linkplace.View.Util.jobData;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +54,11 @@ public class MyProfileCharactorFragment extends Fragment {
     int btn1cnt, btn2cnt, btn3cnt, btn4cnt, btn5cnt, btn6cnt, btn7cnt, btn8cnt, btn9cnt, btn10cnt, btn11cnt, btn12cnt, btn13cnt, btn14cnt = 0;
     boolean click1, click2, click3, click4, click5, click6, click7, click8, click9, click10;
     ArrayList<String> listTitle = new ArrayList<String>();
+
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
+    String name, age, gender, job, charactor, hobby, wantfriend, imageUrl, education, religion, drink, smoke, pet;
 
     public MyProfileCharactorFragment() {
         // Required empty public constructor
@@ -129,7 +149,7 @@ public class MyProfileCharactorFragment extends Fragment {
                         inputcharacterbtn.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C4DFFF")));
                     }
                 } else {
-                     click2 = false;
+                    click2 = false;
                     selectCount -= 1;
                     btn2cnt -= 1;
                     intervalbtn.setBackgroundResource(characterselectbtn);
@@ -417,48 +437,122 @@ public class MyProfileCharactorFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), MyProfileActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                clickmanage();
-                intent.putExtra("Charactor position", listTitle);
+                addProfileData(name, age, gender, job, clickmanage(), hobby, wantfriend, imageUrl, education, religion, drink, smoke, pet);
                 startActivity(intent);
                 getActivity().finish();
+            }
+        });
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+
+                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                name = profileData1.getName();
+                age = profileData1.getBirth();
+                gender = profileData1.getGender();
+                job = profileData1.getJob();
+                charactor = profileData1.getHobby();
+                hobby = profileData1.getHobby();
+                wantfriend = profileData1.getWantfriend();
+                imageUrl = profileData1.getImageUrl();
+                education = profileData1.getEducation();
+                religion = profileData1.getReligion();
+                drink = profileData1.getDrink();
+                smoke = profileData1.getSmoke();
+                pet = profileData1.getPet();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
             }
         });
 
         return view;
     }
 
-    private void clickmanage() {
+    private String clickmanage() {
+        String result = "";
+
         if (click1) {
-            listTitle.add("외향적인");
+            result += "외향적인";
         }
         if (click2) {
-            listTitle.add("내성적인");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "내성적인";
         }
         if (click3) {
-            listTitle.add("활발한");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "활발한";
         }
         if (click4) {
-            listTitle.add("조용한");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "조용한";
         }
         if (click5) {
-            listTitle.add("귀여운");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "귀여운";
         }
         if (click6) {
-            listTitle.add("어른스러운");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "어른스러운";
         }
         if (click7) {
-            listTitle.add("열정적인");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "열정적인";
         }
         if (click8) {
-            listTitle.add("느긋한");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "느긋한";
         }
         if (click9) {
-            listTitle.add("4차원적인");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "4차원적인";
         }
         if (click10) {
-            listTitle.add("예의 바른");
+            if (!result.equals("")) {
+                result += ",";
+            }
+            result += "예의 바른";
         }
 
+        return result;
+
+    }
+
+    public void addProfileData(String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                               String religion, String drink, String smoke, String pet) {
+
+        //여기에서 직접 변수를 만들어서 값을 직접 넣는것도 가능합니다.
+        // ex) 갓 태어난 동물만 입력해서 int age=1; 등을 넣는 경우
+
+        //animal.java에서 선언했던 함수.
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        ProfileData profileData1 = new ProfileData(name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet);
+        databaseReference.child(uid).child("ProfileData").setValue(profileData1);
 
     }
 }

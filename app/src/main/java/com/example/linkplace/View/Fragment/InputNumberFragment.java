@@ -359,7 +359,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     authcounttext.setVisibility(View.VISIBLE);
 
                     PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                            inputnumber,
+                            phoneNum,
                             60,
                             TimeUnit.SECONDS,
                             activity,

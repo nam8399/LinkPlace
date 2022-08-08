@@ -56,6 +56,8 @@ dependencies {
     implementation('com.google.android.gms:play-services-location:16.0.0')
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 }
 repositories {
     mavenCentral()
