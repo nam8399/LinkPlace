@@ -59,7 +59,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/numberinputguide"
+            android:id="@+id/guidtextrview"
             android:layout_width="350dp"
             android:layout_height="75dp"
             android:layout_gravity="center"
@@ -76,7 +76,7 @@
             app:layout_constraintVertical_bias="0.434" />
 
         <TextView
-            android:id="@+id/numberinputguide2"
+            android:id="@+id/guidnumberview"
             android:layout_width="350dp"
             android:layout_height="45dp"
             android:layout_gravity="center"

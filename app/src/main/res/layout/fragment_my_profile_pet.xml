@@ -178,7 +178,7 @@
 
 
         <Button
-            android:id="@+id/inputjobbtn"
+            android:id="@+id/inputpetbtn"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_gravity="center"

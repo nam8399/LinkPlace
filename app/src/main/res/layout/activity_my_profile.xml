@@ -133,6 +133,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/myprofileline"
                     android:background="@color/white">
                     <TextView
+                        android:id="@+id/imagecounttext"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -222,6 +223,76 @@
                             android:layout_marginBottom="15dp">
                             <ImageView
                                 android:id="@+id/image4"
+                                android:layout_width="match_parent"
+                                android:layout_height="99dp"
+                                android:background="@drawable/profileimage">
+                            </ImageView>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="99dp"
+                            android:layout_height="105dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="15dp">
+                            <ImageView
+                                android:id="@+id/image5"
+                                android:layout_width="match_parent"
+                                android:layout_height="99dp"
+                                android:background="@drawable/profileimage">
+                            </ImageView>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="99dp"
+                            android:layout_height="105dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="15dp">
+                            <ImageView
+                                android:id="@+id/image6"
+                                android:layout_width="match_parent"
+                                android:layout_height="99dp"
+                                android:background="@drawable/profileimage">
+                            </ImageView>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="99dp"
+                            android:layout_height="105dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="15dp">
+                            <ImageView
+                                android:id="@+id/image7"
+                                android:layout_width="match_parent"
+                                android:layout_height="99dp"
+                                android:background="@drawable/profileimage">
+                            </ImageView>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="99dp"
+                            android:layout_height="105dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="15dp">
+                            <ImageView
+                                android:id="@+id/image8"
+                                android:layout_width="match_parent"
+                                android:layout_height="99dp"
+                                android:background="@drawable/profileimage">
+                            </ImageView>
+                        </FrameLayout>
+                        <FrameLayout
+                            android:layout_width="99dp"
+                            android:layout_height="105dp"
+                            android:layout_rowWeight="1"
+                            android:layout_columnWeight="1"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginBottom="15dp">
+                            <ImageView
+                                android:id="@+id/image9"
                                 android:layout_width="match_parent"
                                 android:layout_height="99dp"
                                 android:background="@drawable/profileimage">
@@ -364,6 +435,7 @@
                         android:translationY="-0.42sp">
                     </TextView>
                     <EditText
+                        android:id="@+id/myprofilecareer"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -650,6 +722,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/myprofilehobby">
                     <ImageView
+                        android:id="@+id/myprofilehobbybtn"
                         android:layout_width="29dp"
                         android:layout_height="29dp"
                         android:src="@drawable/myprofileaddcontent"
@@ -708,6 +781,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/myprofilewantfriend">
                     <ImageView
+                        android:id="@+id/myprofilwantfriendbtn"
                         android:layout_width="29dp"
                         android:layout_height="29dp"
                         android:src="@drawable/myprofileaddcontent"

@@ -693,5 +693,85 @@
 
     </style>
 
+    <style name="friendintroduce2">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #464C52
+        </item>
+
+    </style>
+
+    <style name="friendregiliontext">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #464C52
+        </item>
+
+    </style>
+
+    <style name="logintext">
+
+        <item name="android:textSize">
+            20sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #26282B
+        </item>
+
+    </style>
+
+    <style name="loginessentiontext">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #2B87F4
+        </item>
+
+    </style>
+
+    <style name="loginservicetext">
+
+        <item name="android:textSize">
+            14sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #26282B
+        </item>
+
+    </style>
+
 
 </resources>

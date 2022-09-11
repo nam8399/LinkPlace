@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "494767741812",
+    "firebase_url": "https://linkplace-5f055-default-rtdb.firebaseio.com",
     "project_id": "linkplace-5f055",
     "storage_bucket": "linkplace-5f055.appspot.com"
   },
@@ -14,10 +15,55 @@
       },
       "oauth_client": [
         {
+          "client_id": "494767741812-m24o8i1n0pqvi846g6di40iuevigcmss.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.linkplace",
+            "certificate_hash": "51064ee18c556ef63702b2e386130d3e3ce01df1"
+          }
+        },
+        {
           "client_id": "494767741812-odiknnfqe8usubf1f96jv5vtbhfttgnm.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.linkplace",
+            "certificate_hash": "d46ec05698c06372445da89ca3dffbd5166ef31a"
+          }
+        },
+        {
+          "client_id": "494767741812-gmdmps6s6rbh8u6ve4gpact2npiujkre.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQcr1zk8FJirJJaJMtl3CO_CwHh82ugAE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "494767741812-gmdmps6s6rbh8u6ve4gpact2npiujkre.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494767741812:android:6e77943bc5276872086a21",
+        "android_client_info": {
+          "package_name": "com.linkple.linkplace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "494767741812-8g8e1t8d17rheefr5shjbarsh8it7clg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.linkple.linkplace",
             "certificate_hash": "d46ec05698c06372445da89ca3dffbd5166ef31a"
           }
         },

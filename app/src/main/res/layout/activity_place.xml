@@ -70,6 +70,22 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/linkbtnimage"
+                    android:layout_width="66dp"
+                    android:layout_height="66dp"
+                    android:gravity="center"
+                    android:backgroundTint="@color/white"
+                    android:textAlignment="center"
+                    android:visibility="invisible"
+                    android:textAppearance="@style/linkbtn"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
                 <ImageView
                     android:id="@+id/editbtn"
                     android:layout_width="75dp"
@@ -156,7 +172,7 @@
                     android:layout_height="30dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="16dp"
-                    android:text="8명의 친구를 만나보세요!"
+                    android:text="0명의 친구를 만나보세요!"
                     android:layout_marginLeft="20dp"
                     android:textAppearance="@style/recommendfriend"
                     app:layout_constraintStart_toStartOf="parent"

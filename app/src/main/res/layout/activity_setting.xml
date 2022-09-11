@@ -6,9 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".View.Activity.SettingActivity">
+    <WebView
+        android:id="@+id/webview"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </WebView>
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
+        android:id="@+id/settingLinear"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:orientation="horizontal"
@@ -146,6 +153,7 @@
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0.737" />
             <LinearLayout
+                android:id="@+id/qnabtn"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">
@@ -162,6 +170,7 @@
                     app:layout_constraintHorizontal_bias="0.737" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/guidebtn"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">
@@ -197,6 +206,7 @@
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0.737" />
             <LinearLayout
+                android:id="@+id/servicebtn"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">
@@ -213,6 +223,7 @@
                     app:layout_constraintHorizontal_bias="0.737" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/privacybtn"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">

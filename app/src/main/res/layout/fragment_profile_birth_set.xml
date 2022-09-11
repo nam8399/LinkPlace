@@ -139,7 +139,7 @@
             android:layout_marginBottom="14dp"
             android:orientation="horizontal">
             <LinearLayout
-                android:id="@+id/inputauthbirthtext"
+                android:id="@+id/inputauthbirthyeartext"
                 android:layout_width="130dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -165,7 +165,7 @@
                 </EditText>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/inputauthbirthtext2"
+                android:id="@+id/inputauthbirtmonthhtext"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
@@ -192,7 +192,7 @@
                 </EditText>
             </LinearLayout>
             <LinearLayout
-                android:id="@+id/inputauthbirthtext3"
+                android:id="@+id/inputauthbirthdaytext"
                 android:layout_width="100dp"
                 android:layout_height="50dp"
                 android:layout_marginTop="10dp"
