@@ -337,6 +337,7 @@
                 app:layout_constraintBottom_toTopOf="parent"
                 app:layout_constraintHorizontal_bias="0.737" />
             <LinearLayout
+                android:id="@+id/logoutbtn"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">
@@ -353,6 +354,7 @@
                     app:layout_constraintHorizontal_bias="0.737" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/removeid"
                 android:layout_width="350dp"
                 android:layout_height="45dp"
                 android:layout_gravity="center">

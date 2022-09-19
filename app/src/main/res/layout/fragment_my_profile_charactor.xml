@@ -291,20 +291,20 @@
             </LinearLayout>
 
         </LinearLayout>
+
         <Button
-            android:id="@+id/inputhobbybtn"
+            android:id="@+id/inputcharacterbtn"
             android:layout_width="330dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:layout_marginTop="40dp"
-            android:gravity="center"
-            android:textStyle="bold"
-            android:text="완료"
             android:background="@drawable/inputnumberbtn"
-            android:textAppearance="@style/inputnumberbtn"
+            android:gravity="center"
             android:lineSpacingExtra="1sp"
-            android:translationY="-0.42sp"
-            />
+            android:text="완료"
+            android:textAppearance="@style/inputnumberbtn"
+            android:textStyle="bold"
+            android:translationY="-0.42sp" />
     </LinearLayout>
 
 

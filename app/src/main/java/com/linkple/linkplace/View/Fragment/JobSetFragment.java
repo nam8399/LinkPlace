@@ -295,4 +295,3 @@ public class JobSetFragment extends Fragment {
         binding=null;
     }
 }
-}

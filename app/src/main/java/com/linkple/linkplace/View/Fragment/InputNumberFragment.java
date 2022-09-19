@@ -2,6 +2,7 @@ package com.linkple.linkplace.View.Fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -10,6 +11,9 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
+import android.os.Looper;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -63,6 +67,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
     PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
+    private SharedPreferences sharedPref;
     String TAG = "InputNumberFragment";
     String mVerificationId = "";
     private static final String KEY_VERIFICATION_ID = "key_verification_id";
@@ -97,6 +102,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 
     @Override
@@ -125,18 +131,24 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
                     //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
                     try {
-                        name = profileData1.getName();
+                        name = null;
+                        name = profileData1.getWantfriend();
                         Log.d("InputNumberFragment", "name : " + name);
                     } catch (Exception e) {
+                        name = null;
                         e.printStackTrace();
                     }
 
                     if (mAuth.getCurrentUser() != null && name != null) {
-                        Intent intent = new Intent(getContext(), PlaceActivity.class);
-                        startActivity(intent);
-                        getActivity().finish();
-                        Toast toast = Toast.makeText(getContext(), "자동 로그인 성공", Toast.LENGTH_SHORT);
-                        toast.show();
+                        try {
+                            Intent intent = new Intent(getContext(), PlaceActivity.class);
+                            startActivity(intent);
+                            getActivity().finish();
+                            Toast toast = Toast.makeText(getContext(), "자동 로그인 성공", Toast.LENGTH_SHORT);
+                            toast.show();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
 
@@ -536,7 +548,8 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                     timerTask.cancel();
                     binding.authcounttext.setTextColor(Color.RED);
                 }
-                binding.authcounttext.post(new Runnable() {
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
                         if (count == 0 && minute == 0) {
@@ -685,6 +698,6 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
     public void onDestroyView() {
         super.onDestroyView();
 
-        binding=null;
+//        binding=null;
     }
 }

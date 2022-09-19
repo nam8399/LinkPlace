@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.linkple.linkplace.R;
+import com.linkple.linkplace.View.Fragment.LoginFragment;
 import com.linkple.linkplace.View.Model.FriendViewAdapter;
 import com.linkple.linkplace.View.Model.LinkData;
 import com.linkple.linkplace.View.Model.ProfileData;
@@ -62,6 +63,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    String uid = user.getUid();
 
     String name, age, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet, introduce, career;
 
@@ -89,7 +92,12 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
         listener(); // 버튼 동작 설정
 
-        firebaseDataSetting(); // 파이어베이스 데이터 셋팅
+        if (uid == null) {
+            startActivity(new Intent(PlaceActivity.this, LoginFragment.class));
+        } else {
+            Log.d("uid is", uid);
+            firebaseDataSetting(); // 파이어베이스 데이터 셋팅
+        }
 
         initMapfragment(); // 지도 객체 생성
     }
@@ -120,42 +128,49 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
 
-                //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
-                name = profileData1.getName();
-                age = profileData1.getBirth();
-                gender = profileData1.getGender();
-                job = profileData1.getJob();
-                charactor = profileData1.getCharactor();
-                hobby = profileData1.getHobby();
-                wantfriend = profileData1.getWantfriend();
-                ImageUrl = profileData1.getImageUrl();
-                education = profileData1.getEducation();
-                religion = profileData1.getReligion();
-                drink = profileData1.getDrink();
-                smoke = profileData1.getSmoke();
-                pet = profileData1.getPet();
-                introduce = profileData1.getIntroduce();
-                career = profileData1.getCareer();
+                try {
+                    //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                    name = profileData1.getName();
+                    age = profileData1.getBirth();
+                    gender = profileData1.getGender();
+                    job = profileData1.getJob();
+                    charactor = profileData1.getCharactor();
+                    hobby = profileData1.getHobby();
+                    wantfriend = profileData1.getWantfriend();
+                    ImageUrl = profileData1.getImageUrl();
+                    education = profileData1.getEducation();
+                    religion = profileData1.getReligion();
+                    drink = profileData1.getDrink();
+                    smoke = profileData1.getSmoke();
+                    pet = profileData1.getPet();
+                    introduce = profileData1.getIntroduce();
+                    career = profileData1.getCareer();
 
-                String imageUrlList[] = ImageUrl.split(",");
-                for (int i = 0; i < imageUrlList.length; i++) {
-                    // 각 List의 값들을 data 객체에 set 해줍니다.
-                    switch (i) {
-                        case 0:
-                            byte[] b = binaryStringToByteArray(imageUrlList[i]);
-                            ByteArrayInputStream is = new ByteArrayInputStream(b);
-                            Drawable reviewImage2 = Drawable.createFromStream(is, "reviewImage");
-                            binding.linkbtnimage.setImageDrawable(reviewImage2);
-                            binding.linkbtnimage.setOutlineProvider(new ViewOutlineProvider() {
-                                @Override
-                                public void getOutline(View view, Outline outline) {
-                                    outline.setRoundRect(0,0,view.getWidth(), view.getHeight(), 40);
-                                }
-                            });
-                            binding.linkbtnimage.setClipToOutline(true);
-                            break;
+                    String imageUrlList[] = ImageUrl.split(",");
+                    for (int i = 0; i < imageUrlList.length; i++) {
+                        // 각 List의 값들을 data 객체에 set 해줍니다.
+                        switch (i) {
+                            case 0:
+                                byte[] b = binaryStringToByteArray(imageUrlList[i]);
+                                ByteArrayInputStream is = new ByteArrayInputStream(b);
+                                Drawable reviewImage2 = Drawable.createFromStream(is, "reviewImage");
+                                binding.linkbtnimage.setImageDrawable(reviewImage2);
+                                binding.linkbtnimage.setOutlineProvider(new ViewOutlineProvider() {
+                                    @Override
+                                    public void getOutline(View view, Outline outline) {
+                                        outline.setRoundRect(0,0,view.getWidth(), view.getHeight(), 40);
+                                    }
+                                });
+                                binding.linkbtnimage.setClipToOutline(true);
+                                break;
+                        }
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    startActivity(new Intent(PlaceActivity.this, MainActivity.class));
+                    finish();
                 }
+
             }
 
             @Override

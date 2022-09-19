@@ -1,7 +1,11 @@
 package com.linkple.linkplace.View.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +16,26 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.linkple.linkplace.R;
+import com.linkple.linkplace.View.Fragment.LoginFragment;
 import com.linkple.linkplace.databinding.ActivitySettingBinding;
 
 public class SettingActivity extends AppCompatActivity {
     ActivitySettingBinding binding;
+
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference databaseReference = database.getReference();
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +94,65 @@ public class SettingActivity extends AppCompatActivity {
                 binding.settingLinear.setVisibility(View.INVISIBLE);
                 binding.guideTextLinear.setVisibility(View.INVISIBLE);
                 binding.guideLine.setVisibility(View.INVISIBLE);
+            }
+        });
+
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        binding.logoutbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Toast.makeText(SettingActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                    }
+                });
+            }
+        });
+        
+        binding.removeid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alert_confirm = new AlertDialog.Builder(SettingActivity.this);
+                alert_confirm.setMessage("정말 계정을 삭제 할까요?").setCancelable(false).setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                databaseReference.child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        Toast.makeText(SettingActivity.this, "계정이 삭제 되었습니다.", Toast.LENGTH_LONG).show();
+                                                        startActivity(new Intent(SettingActivity.this, MainActivity.class));
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        System.out.println("error: "+e.getMessage());
+                                                        Toast.makeText(SettingActivity.this, "회원탈퇴 실패", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                            }
+                                        });
+                            }
+                        }
+                );
+                alert_confirm.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(SettingActivity.this, "취소", Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                AlertDialog alertDialog = alert_confirm.create();
+                alertDialog.show();
             }
         });
     }
