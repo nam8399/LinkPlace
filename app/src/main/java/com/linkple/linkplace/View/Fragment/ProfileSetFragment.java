@@ -5,11 +5,13 @@ import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.Spannable;
@@ -23,9 +25,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -37,6 +42,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.linkple.linkplace.View.Util.ProgressDialog;
 import com.linkple.linkplace.databinding.FragmentProfileSetBinding;
 
 public class ProfileSetFragment extends Fragment {
@@ -46,8 +52,12 @@ public class ProfileSetFragment extends Fragment {
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference databaseReference = database.getReference();
 
+    Thread autologincheck_Thread;
+
     FirebaseAuth mAuth;
 
+    Handler handler = new Handler();
+    ProgressDialog progressDialog;
     String name;
 
     public ProfileSetFragment() {
@@ -73,47 +83,80 @@ public class ProfileSetFragment extends Fragment {
         return binding.getRoot();
     }
 
+
+
     private void autologincheck() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        try {
-            String uid = user.getUid();
-            databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
+        autologincheck_Thread = new Thread(new Runnable() {
+            boolean isRun = false;
+            int value = 0;
 
-                    name = null;
-                    //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
-                    try {
-                        name = profileData1.getWantfriend();
-                        Log.d("InputNumberFragment", "name : " + name);
-                    } catch (Exception e) {
-                        name = null;
-                        e.printStackTrace();
+            @Override
+            public void run() {
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                try {
+                    String uid = user.getUid();
+                    databaseReference.child(uid).child("ProfileData").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            ProfileData profileData1 = dataSnapshot.getValue(ProfileData.class);
 
-                    }
+                            name = null;
+                            //각각의 값 받아오기 get어쩌구 함수들은 intakegroup.class에서 지정한것
+                            try {
+                                name = profileData1.getWantfriend();
+                                Log.d("InputNumberFragment", "name : " + name);
+                            } catch (Exception e) {
+                                name = null;
+                                e.printStackTrace();
 
-                    if (name != null && !name.equals("")) {
-                        try {
-                            Intent intent = new Intent(getContext(), PlaceActivity.class);
-                            startActivity(intent);
-                            getActivity().finish();
-                            Toast toast = Toast.makeText(getContext(), "자동 로그인 성공", Toast.LENGTH_SHORT);
-                            toast.show();
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            }
+                            if (name != null && !name.equals("")) {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        try {
+                                            progressDialog.dismiss();
+                                            Intent intent = new Intent(getContext(), PlaceActivity.class);
+                                            startActivity(intent);
+                                            getActivity().finish();
+                                            Toast toast = Toast.makeText(getContext(), "자동 로그인 성공", Toast.LENGTH_SHORT);
+                                            toast.show();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                            } else {
+                                handler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.dismiss();
+                                    }
+                                });
+                            }
+
                         }
-                    }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                    //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            //Log.e("MainActivity", String.valueOf(databaseError.toException())); // 에러문 출력
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
+            }
+        });
+        autologincheck_Thread.start(); //start()붙이면 바로실행시킨다.
+
+        try {
+            Thread.sleep(1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        autologincheck_Thread.interrupt();
     }
 
     private void listenerSetting() {
@@ -152,9 +195,6 @@ public class ProfileSetFragment extends Fragment {
         binding.inputnamebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                autologincheck(); // 자동로그인 체크
-
                 addProfileData(binding.inputnametext.getText().toString(), "", "", "", "", "", "", "", "", "", "", "", "", "", "");
                 ((MainActivity)getActivity()).replaceFragment(ProfileBirthSetFragment.newInstance());
             }
@@ -194,7 +234,25 @@ public class ProfileSetFragment extends Fragment {
 
     public void onDestroyView() {
         super.onDestroyView();
-
+        try {
+            Thread.sleep(1000);
+        } catch(InterruptedException e) {
+            e.printStackTrace();
+        }
+        autologincheck_Thread.interrupt();
         binding=null;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        progressDialog = new ProgressDialog(getContext());
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        progressDialog.setCancelable(false);
+
+        progressDialog.show();
+
+
+        autologincheck();
     }
 }

@@ -104,14 +104,9 @@ public class SettingActivity extends AppCompatActivity {
         binding.logoutbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(SettingActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(SettingActivity.this, MainActivity.class));
-                    }
-                });
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(SettingActivity.this, "로그아웃 되었습니다.", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(SettingActivity.this, MainActivity.class));
             }
         });
         
