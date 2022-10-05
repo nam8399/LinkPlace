@@ -11,12 +11,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linkple.linkplace.R;
 import com.linkple.linkplace.View.Adapter.FriendRecyclerAdapter;
@@ -83,6 +88,34 @@ public class FriendActivity extends AppCompatActivity {
                 AlertDialog alertDialog = builder.create();
 
                 alertDialog.show();
+            }
+        });
+
+        binding.settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.d("FriendActivity","setting button click");
+                final PopupMenu popupMenu = new PopupMenu(getApplicationContext(),view);
+                getMenuInflater().inflate(R.menu.drawerlayout,popupMenu.getMenu());
+                popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem menuItem) {
+                        if (menuItem.getItemId() == R.id.menu_item1){
+//                            Intent mail_intent = new Intent(Intent.ACTION_SEND);
+//                            mail_intent.setType("*/*");
+//                            mail_intent.setPackage("com.google.android.gm");
+
+                            Intent mail_intent = new Intent(Intent.ACTION_SENDTO);
+                            mail_intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                            mail_intent.putExtra(Intent.EXTRA_EMAIL, "jjinjisik@gmail.com"); // 받는 사람 이메일
+                            mail_intent.putExtra(Intent.EXTRA_SUBJECT, "[LinkPlace 신고]"); // 메일 제목
+                            mail_intent.putExtra(Intent.EXTRA_TEXT, "제보자 닉네임 : \n신고 사용자 닉네임 : \n신고 내용 :\n\n- 받는 사람에 jjinjisik@gmail.com을 기입해주세요"); // 메일 내용
+                            startActivity(mail_intent);
+                        }
+                        return false;
+                    }
+                });
+                popupMenu.show();
             }
         });
 

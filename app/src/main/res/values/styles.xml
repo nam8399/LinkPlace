@@ -75,7 +75,7 @@
         </item>
 
         <item name="android:textColor">
-            #73787E
+            #000000
         </item>
 
     </style>
@@ -769,6 +769,22 @@
 
         <item name="android:textColor">
             #26282B
+        </item>
+
+    </style>
+
+    <style name="robotalert">
+
+        <item name="android:textSize">
+            10sp
+        </item>
+
+        <item name="android:letterSpacing">
+            -0.05
+        </item>
+
+        <item name="android:textColor">
+            #898A8D
         </item>
 
     </style>

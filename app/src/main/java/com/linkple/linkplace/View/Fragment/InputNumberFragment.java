@@ -417,6 +417,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
                     binding.guidnumberview.setText(spannableString);
                     binding.nosendAuthNum.setVisibility(View.VISIBLE);
+                    binding.robotalertlinear.setVisibility(View.INVISIBLE);
                     binding.inputnumberLinear.setVisibility(View.GONE);
                     binding.inputauthnumberLinear.setVisibility(View.VISIBLE);
                 } else if (binding.inputnumberbtn.getText().toString().equals("인증하기")) {
@@ -466,6 +467,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
                 binding.inputnumberLinear.setVisibility(View.VISIBLE);
                 binding.cancelButton.setVisibility(View.VISIBLE);
                 binding.nosendAuthNum.setVisibility(View.GONE);
+                binding.robotalertlinear.setVisibility(View.VISIBLE);
                 binding.inputauthnumberLinear.setVisibility(View.GONE);
                 binding.inputnumberbtn.setClickable(false);
                 binding.inputnumberbtn.setEnabled(false);
@@ -513,6 +515,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
             binding. guidnumberview.setText(spannableString);
             binding.nosendAuthNum.setVisibility(View.VISIBLE);
+            binding.robotalertlinear.setVisibility(View.GONE);
             binding.inputnumberLinear.setVisibility(View.GONE);
             binding.inputauthnumberLinear.setVisibility(View.VISIBLE);
         }
@@ -521,6 +524,7 @@ public class InputNumberFragment extends Fragment implements OnBackPressedListen
 
     private void visibleSetting() {
         binding.nosendAuthNum.setVisibility(View.GONE);
+        binding.robotalertlinear.setVisibility(View.VISIBLE);
         binding.inputauthnumberLinear.setVisibility(View.GONE);
         binding.inputnumberbtn.setClickable(false);
         binding.inputnumberbtn.setEnabled(false);

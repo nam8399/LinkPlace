@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -79,7 +80,12 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 binding.webview.setVisibility(View.VISIBLE);
-                binding.webview.loadUrl("congruous-swim-6f8.notion.site/dddcd51a902b49babbc730d23bf41475");//웹뷰 실행
+                Intent mail_intent = new Intent(Intent.ACTION_SENDTO);
+                mail_intent.setData(Uri.parse("mailto:")); // only email apps should handle this
+                mail_intent.putExtra(Intent.EXTRA_EMAIL, "jjinjisik@gmail.com"); // 받는 사람 이메일
+                mail_intent.putExtra(Intent.EXTRA_SUBJECT, "[LinkPlace 신고]"); // 메일 제목
+                mail_intent.putExtra(Intent.EXTRA_TEXT, "제보자 닉네임 : \n신고 사용자 닉네임 : \n신고 내용 :\n\n- 받는 사람에 jjinjisik@gmail.com을 기입해주세요"); // 메일 내용
+                startActivity(mail_intent);
                 binding.settingLinear.setVisibility(View.INVISIBLE);
                 binding.guideTextLinear.setVisibility(View.INVISIBLE);
                 binding.guideLine.setVisibility(View.INVISIBLE);

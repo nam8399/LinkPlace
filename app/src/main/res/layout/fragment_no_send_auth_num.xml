@@ -128,7 +128,7 @@
             android:layout_marginBottom="10dp"
             android:gravity="top"
             android:lineSpacingExtra="1sp"
-            android:text="(070-000-0000)로 인증 메시지가 전송됩니다.\n스팸 메시지 차단 목록에 해당 메시지가 있는지 확인 후\n차단을 해제해주세요. "
+            android:text="스팸 메시지 차단 목록에 전화번호 인증 메시지가 있는지 확인 후 차단을 해제해주세요."
             android:textAppearance="@style/guideinputnumberstyle2"
             android:translationY="-0.36sp"
             app:layout_constraintBottom_toTopOf="parent"

@@ -90,6 +90,30 @@
             app:layout_constraintHorizontal_bias="0.737" />
 
         <LinearLayout
+            android:id="@+id/robotalertlinear"
+            android:layout_width="wrap_content"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="14dp"
+            android:lineSpacingExtra="1sp"
+            android:translationY="-0.31sp"
+            android:gravity="top">
+
+            <TextView
+                android:id="@+id/robottext"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="0.8"
+                android:gravity="top"
+                android:lineSpacingExtra="1sp"
+                android:text="이 과정에서 인터넷 보안창이 나타날 수 있습니다."
+                android:textAppearance="@style/robotalert"
+                android:textStyle="bold"
+                android:translationY="-0.31sp" />
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/nosendAuthNumLinear"
             android:layout_width="350dp"
             android:layout_height="18dp"
@@ -98,19 +122,19 @@
             android:lineSpacingExtra="1sp"
             android:translationY="-0.31sp"
             android:gravity="top">
+
             <TextView
                 android:id="@+id/nosendAuthNum"
                 android:layout_width="350dp"
-                android:layout_height="18dp"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="0.8"
-                android:text="인증번호가 오지 않나요?"
-                android:textStyle="bold"
-                android:textAppearance="@style/nosendauth"
-                android:lineSpacingExtra="1sp"
-                android:translationY="-0.31sp"
                 android:gravity="top"
-                />
+                android:lineSpacingExtra="1sp"
+                android:text="인증번호가 오지 않나요?"
+                android:textAppearance="@style/nosendauth"
+                android:textStyle="bold"
+                android:translationY="-0.31sp" />
             <TextView
                 android:layout_width="350dp"
                 android:layout_height="18dp"

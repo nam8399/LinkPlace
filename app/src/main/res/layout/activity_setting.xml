@@ -180,7 +180,7 @@
                     android:layout_gravity="center"
                     android:gravity="top"
                     android:lineSpacingExtra="1sp"
-                    android:text="커뮤니티 가이드라인"
+                    android:text="신고하기"
                     android:textAppearance="@style/myprofile_push"
                     android:translationY="-0.36sp"
                     app:layout_constraintBottom_toTopOf="parent"
