@@ -127,6 +127,7 @@ public class SettingActivity extends AppCompatActivity {
                                 user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> task) {
+                                                databaseReference.child("Link").child(uid).removeValue();
                                                 databaseReference.child(uid).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                                     @Override
                                                     public void onSuccess(Void aVoid) {

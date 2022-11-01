@@ -471,7 +471,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
 
 
         LinkData linkData = new LinkData(lat, lon, name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet, uid, introduce, career);
-        databaseReference.child("Link").push().setValue(linkData);
+//        databaseReference.child("Link").push().setValue(linkData);
+        databaseReference.child("Link").child(uid).setValue(linkData);
 
     }
 
