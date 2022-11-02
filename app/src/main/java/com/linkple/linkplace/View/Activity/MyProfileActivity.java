@@ -20,8 +20,11 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewOutlineProvider;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linkple.linkplace.R;
@@ -355,6 +358,38 @@ public class MyProfileActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        binding.myprofileedittext.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        binding.myprofileedittext.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_DONE)
+                {
+                    Toast.makeText(getApplicationContext(),"직업 저장 완료",Toast.LENGTH_SHORT).show();
+                    career = binding.myprofilecareer.getText().toString();
+                    addProfileData(name, age, gender, job, charactor, hobby, wantfriend, imageUrl, education, religion, drink, smoke, pet, introduce, career);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        binding.myprofilecareer.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        binding.myprofilecareer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == EditorInfo.IME_ACTION_DONE)
+                {
+                    Toast.makeText(getApplicationContext(),"자기소개 저장 완료",Toast.LENGTH_SHORT).show();
+                    introduce = binding.myprofileedittext.getText().toString();
+                    addProfileData(name, age, gender, job, charactor, hobby, wantfriend, imageUrl, education, religion, drink, smoke, pet, introduce, career);
+                    return true;
+                }
+                return false;
             }
         });
 

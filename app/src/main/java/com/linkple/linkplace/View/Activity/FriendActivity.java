@@ -205,24 +205,29 @@ public class FriendActivity extends AppCompatActivity {
             binding.friendregilion.setVisibility(View.GONE);
         } else {
             binding.friendregiliontext.setText(religion);
+            binding.friendline.setVisibility(View.VISIBLE);
+
         }
 
         if (drink.equals("")) {
             binding.frienddrink.setVisibility(View.GONE);
         } else {
             binding.frienddrinktext.setText(drink);
+            binding.friendline.setVisibility(View.VISIBLE);
         }
 
         if (smoke.equals("")) {
             binding.friendsmoke.setVisibility(View.GONE);
         } else {
             binding.friendsmoketext.setText(smoke);
+            binding.friendline.setVisibility(View.VISIBLE);
         }
 
         if (pet.equals("")) {
             binding.friendpet.setVisibility(View.GONE);
         } else {
             binding.friendpettext.setText(pet);
+            binding.friendline.setVisibility(View.VISIBLE);
         }
 
     }

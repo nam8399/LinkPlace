@@ -52,6 +52,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import static com.linkple.linkplace.View.Activity.MyProfileActivity.binaryStringToByteArray;
+import static com.naver.maps.map.CameraUpdate.REASON_GESTURE;
 
 public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallback {
     private ActivityPlaceBinding binding;
@@ -245,6 +246,8 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 Log.d("PlaceAcitivity", "click my loc");
                 naverMap.setLocationSource(locationSource);
                 naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+                binding.linkbtn.setVisibility(View.VISIBLE);
+                binding.linkbtntext.setVisibility(View.VISIBLE);
             }
         });
 
@@ -295,7 +298,11 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
                 removeMapData();
                 stopTimerTask();
                 binding.linkbtnimage.setVisibility(View.INVISIBLE);
-                binding.linkcountxbtn.setVisibility(View.INVISIBLE);
+                binding.linkcount.setVisibility(View.INVISIBLE);
+                binding.linkbtntext.setVisibility(View.VISIBLE);
+                binding.linkbtntext.setText("Link");
+                binding.linkbtn.setEnabled(true);
+                removeMapData();
             }
         });
     }
@@ -334,7 +341,17 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         LocationOverlay locationOverlay = naverMap.getLocationOverlay();
         locationOverlay.setVisible(true);
         locationOverlay.setIcon(null);
+
+
+        naverMap.addOnCameraChangeListener((reason, animated) -> {
+            Log.i("NaverMap", "카메라 변경 - reson: " + reason + ", animated: " + animated);
+            if(reason == REASON_GESTURE) {
+                binding.linkbtn.setVisibility(View.INVISIBLE);
+                binding.linkbtntext.setVisibility(View.INVISIBLE);
+            }
+        });
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull @NotNull String[] permissions, @NonNull @NotNull int[] grantResults) {
@@ -473,6 +490,17 @@ public class PlaceActivity extends AppCompatActivity implements OnMapReadyCallba
         LinkData linkData = new LinkData(lat, lon, name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet, uid, introduce, career);
 //        databaseReference.child("Link").push().setValue(linkData);
         databaseReference.child("Link").child(uid).setValue(linkData);
+
+    }
+
+    public void removeMapData(double lat, double lon, String name, String birth, String gender, String job, String charactor, String hobby, String wantfriend, String ImageUrl, String education,
+                           String religion, String drink, String smoke, String pet, String uid, String introduce, String career) {
+
+
+
+        LinkData linkData = new LinkData(lat, lon, name, birth, gender, job, charactor, hobby, wantfriend, ImageUrl, education, religion, drink, smoke, pet, uid, introduce, career);
+//        databaseReference.child("Link").push().setValue(linkData);
+        databaseReference.child("Link").child(uid).removeValue();
 
     }
 
